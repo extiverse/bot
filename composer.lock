@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "37e1468ebfc70740e4b2b199440f0722",
+    "content-hash": "aa83bc18b32ac6b97f542f908b5cb06f",
     "packages": [
         {
             "name": "discodian/core",
@@ -64,16 +64,16 @@
         },
         {
             "name": "discodian/extend",
-            "version": "0.1.0-beta.1",
+            "version": "0.1.0-beta.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/discodian/extend.git",
-                "reference": "6e7594cbe0538acff43c67ec1f0c553e237a9e60"
+                "reference": "559f80586f3cf312633164d33cdf11814d965149"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/discodian/extend/zipball/6e7594cbe0538acff43c67ec1f0c553e237a9e60",
-                "reference": "6e7594cbe0538acff43c67ec1f0c553e237a9e60",
+                "url": "https://api.github.com/repos/discodian/extend/zipball/559f80586f3cf312633164d33cdf11814d965149",
+                "reference": "559f80586f3cf312633164d33cdf11814d965149",
                 "shasum": ""
             },
             "require": {
@@ -97,7 +97,7 @@
                 }
             ],
             "description": "The Discord extension assistance used in discodian",
-            "time": "2017-12-11T15:12:35+00:00"
+            "time": "2017-12-18T13:25:23+00:00"
         },
         {
             "name": "discodian/parts",
@@ -249,16 +249,11 @@
         {
             "name": "flagrow/discodian-extension",
             "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/flagrow/discodian-extension.git",
-                "reference": "4cdbb85292581465de86cd4e44eea9b466f25f38"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/flagrow/discodian-extension/zipball/4cdbb85292581465de86cd4e44eea9b466f25f38",
-                "reference": "4cdbb85292581465de86cd4e44eea9b466f25f38",
-                "shasum": ""
+                "type": "path",
+                "url": "extensions/search",
+                "reference": "f35afa492acdccb3e7148cc692181bcd1d8aa388",
+                "shasum": null
             },
             "require": {
                 "discodian/core": "*"
@@ -266,10 +261,9 @@
             "type": "discodian-extension",
             "autoload": {
                 "psr-4": {
-                    "Flagrow\\Discodian\\": "src/"
+                    "Flagrow\\Discodian\\Search\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -280,8 +274,7 @@
                     "homepage": "https://luceos.com"
                 }
             ],
-            "description": "The flagrow extension for discodian",
-            "time": "2017-12-18T13:25:42+00:00"
+            "description": "The flagrow extension for discodian"
         },
         {
             "name": "guzzlehttp/guzzle",

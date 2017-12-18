@@ -13,7 +13,7 @@
     ],
     "require": {
         "discodian/core": "@dev",
-        "flagrow/discodian-extension": "dev-master"
+        "flagrow/discodian-extension": "@dev"
     },
     "scripts": {
         "post-root-package-install": [
@@ -24,5 +24,11 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": {
+        "search": {
+            "type": "path",
+            "url": "extensions/search"
+        }
+    }
 }

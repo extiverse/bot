@@ -1,0 +1,24 @@
+{
+    "name": "flagrow/discodian-extension",
+    "description": "The flagrow extension for discodian",
+    "type": "discodian-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniël Klabbers",
+            "email": "daniel@klabbers.email",
+            "homepage": "https://luceos.com"
+        }
+    ],
+    "require": {
+        "discodian/core": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Flagrow\\Discodian\\Search\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
