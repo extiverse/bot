@@ -1,0 +1,6 @@
+.env
+studio.json
+cache/
+logs/
+vendor/
+workbench/

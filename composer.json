@@ -1,0 +1,28 @@
+{
+    "name": "discodian/discodian",
+    "description": "The Discord bot toolkit for modern php",
+    "type": "project",
+    "license": "MIT",
+    "keywords": ["discord", "bot"],
+    "authors": [
+        {
+            "name": "Daniël Klabbers",
+            "email": "daniel@klabbers.email",
+            "homepage": "https://luceos.com"
+        }
+    ],
+    "require": {
+        "discodian/core": "@dev",
+        "flagrow/discodian-extension": "dev-master"
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
