@@ -53,6 +53,12 @@ class PackageSearch implements AnswersMessages
         $fields = [];
 
         foreach ($packages as $package) {
+            $packageUrl = Arr::get($package, 'attributes.landingPageLink');
+
+            if (Arr::has($package, 'attributes.discussLink')) {
+                $packageUrl = Arr::get($package, 'attributes.discussLink');
+            }
+
             $fields[] = [
                 'name' => sprintf(
                     '%s',
@@ -61,7 +67,7 @@ class PackageSearch implements AnswersMessages
                 'value' => sprintf(
                     "[%s](%s)",
                     Str::limit($package['attributes']['description'], 800, '..'),
-                    Arr::get($package, 'attributes.discussLink', Arr::get($package, 'attributes.landingPageLink'))
+                    $packageUrl
                 )
             ];
         }
