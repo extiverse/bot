@@ -53,6 +53,7 @@
         state: link
       with_items:
         - .env
+        - logs/
     - name: Set up directory permissions of release
       become: true
       file:
