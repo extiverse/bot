@@ -55,7 +55,7 @@ class PackageSearch implements AnswersMessages
         foreach ($packages as $package) {
             $packageUrl = Arr::get($package, 'attributes.landingPageLink');
 
-            if (Arr::has($package, 'attributes.discussLink')) {
+            if (!empty(Arr::get($package, 'attributes.discussLink'))) {
                 $packageUrl = Arr::get($package, 'attributes.discussLink');
             }
 
