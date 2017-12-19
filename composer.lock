@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "aa83bc18b32ac6b97f542f908b5cb06f",
+    "content-hash": "be80cbe65519c40835d41893c4ffb1b0",
     "packages": [
         {
             "name": "discodian/core",
@@ -61,6 +61,44 @@
             ],
             "description": "The Discord bot toolkit for modern php",
             "time": "2017-12-18T10:54:48+00:00"
+        },
+        {
+            "name": "discodian/ext-sentry",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/discodian/ext-sentry.git",
+                "reference": "7157e5c38e65111a040c25f4d0561207f1f23365"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/discodian/ext-sentry/zipball/7157e5c38e65111a040c25f4d0561207f1f23365",
+                "reference": "7157e5c38e65111a040c25f4d0561207f1f23365",
+                "shasum": ""
+            },
+            "require": {
+                "discodian/core": "*",
+                "sentry/sentry": "^1.8.1"
+            },
+            "type": "discodian-extension",
+            "autoload": {
+                "psr-4": {
+                    "Discodian\\Sentry\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniël Klabbers",
+                    "email": "daniel@klabbers.email",
+                    "homepage": "https://luceos.com"
+                }
+            ],
+            "description": "The Sentry extension for discodian",
+            "time": "2017-12-19T13:20:51+00:00"
         },
         {
             "name": "discodian/extend",
@@ -1686,6 +1724,70 @@
             "time": "2017-11-20T11:55:48+00:00"
         },
         {
+            "name": "sentry/sentry",
+            "version": "1.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/getsentry/sentry-php.git",
+                "reference": "3e4bb1486cd4e09869cb3342aef374788d540f1c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/3e4bb1486cd4e09869cb3342aef374788d540f1c",
+                "reference": "3e4bb1486cd4e09869cb3342aef374788d540f1c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": "^5.3|^7.0"
+            },
+            "conflict": {
+                "raven/raven": "*"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^1.8.0",
+                "monolog/monolog": "*",
+                "phpunit/phpunit": "^4.8.35 || ^5.7"
+            },
+            "suggest": {
+                "ext-hash": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "monolog/monolog": "Automatically capture Monolog events as breadcrumbs"
+            },
+            "bin": [
+                "bin/sentry"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.9.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Raven_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "David Cramer",
+                    "email": "dcramer@gmail.com"
+                }
+            ],
+            "description": "A PHP client for Sentry (http://getsentry.com)",
+            "homepage": "http://getsentry.com",
+            "keywords": [
+                "log",
+                "logging"
+            ],
+            "time": "2017-11-09T17:44:23+00:00"
+        },
+        {
             "name": "symfony/console",
             "version": "v3.4.2",
             "source": {
@@ -2155,7 +2257,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "discodian/core": 20,
-        "flagrow/discodian-extension": 20
+        "flagrow/discodian-extension": 20,
+        "discodian/ext-sentry": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

@@ -13,7 +13,8 @@
     ],
     "require": {
         "discodian/core": "@dev",
-        "flagrow/discodian-extension": "@dev"
+        "flagrow/discodian-extension": "@dev",
+        "discodian/ext-sentry": "@dev"
     },
     "scripts": {
         "post-root-package-install": [
