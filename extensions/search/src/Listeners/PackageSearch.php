@@ -39,28 +39,39 @@ class PackageSearch implements AnswersMessages
 
         $payload = $this->http->search($search);
 
-        $total = Arr::get($payload, 'meta.items_total');
+        $meta = Arr::get($payload, 'meta', []);
+        $total = Arr::get($meta, 'items_total', 0);
         $packages = Arr::get($payload, 'data', []);
+        $searchUrl = Str::replaceFirst('/api', '', Arr::get($payload, 'links.self'));
 
         $response = new TextResponse();
         $embed = new Embed([
-            'title' => "Your extensions search for term: '$search'",
-            'url' => 'https://flagrow.io/packages?sort=-downloads&filter[q]=' . $search,
+            'title' => "Most downloaded extensions from search: '$search'",
+            'url' => $searchUrl,
         ]);
 
         $fields = [];
 
         foreach ($packages as $package) {
             $fields[] = [
-                'name' => $package['attributes']['name'],
-                'value' => Str::limit($package['attributes']['description'], 1020, '..')
+                'name' => sprintf(
+                    '%s',
+                    $package['attributes']['name']
+                ),
+                'value' => sprintf(
+                    "[%s](%s)",
+                    Str::limit($package['attributes']['description'], 800, '..'),
+                    Arr::get($package, 'attributes.discussLink', Arr::get($package, 'attributes.landingPageLink'))
+                )
             ];
         }
 
         $embed->fields = $fields;
         $embed->color = 0x5f4bb6;
         if ($total > 5) {
-            $embed->footer = ['text' => sprintf("Showing 5 out of $total extensions.")];
+            $embed->footer = [
+                'text' => sprintf("Showing 5 out of $total extensions.")
+            ];
         }
 
         $response->embed = $embed;
