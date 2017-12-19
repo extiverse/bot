@@ -1,0 +1,86 @@
+---
+- hosts: all
+  remote_user: "{{ lookup('env', 'DEPLOY_USER') }}"
+  gather_facts: no
+
+  vars:
+    release: "{{ lookup('env', 'CIRCLE_BUILD_NUM') }}"
+    project: "{{ lookup('env', 'CIRCLE_PROJECT_REPONAME') }}"
+    workspace: "{{ lookup('env', 'CIRCLE_WORKING_DIRECTORY') }}"
+    git_repo: "{{ lookup('env', 'CIRCLE_REPOSITORY_URL') }}"
+    git_tag: "{{ lookup('env', 'CIRCLE_TAG') }}"
+    git_sha: "{{ lookup('env', 'CIRCLE_SHA1') }}"
+    git_branch: "{{ lookup('env', 'CIRCLE_BRANCH') }}"
+    git_user: "{{ lookup('env', 'CIRCLE_USERNAME') }}"
+    webhook_uri: "{{ lookup('env', 'WEBHOOK_URI') }}"
+    max_releases: 3
+    deployment_path: /deployments
+    web_user: "{{ lookup('env', 'DEPLOY_USER') }}"
+    svn_ssh_key: "{{ lookup('env', 'DEPLOY_SSH_KEY') }}"
+    project_path: "{{ deployment_path }}/{{ project }}/"
+    bot: "{{ lookup('env', 'BOT' }}"
+
+  tasks:
+    - name: Initialize the deploy helper
+      deploy_helper:
+        path: "{{ project_path }}"
+    - name: Deploy release
+      git:
+        repo: "{{ git_repo }}"
+        dest: "{{ deploy_helper.new_release_path }}"
+        version: "{{ git_sha }}"
+        key_file: "{{ svn_ssh_key }}"
+        accept_hostkey: yes
+    - name: Add an unfinished file, to allow cleanup on successful finalize
+      file:
+        path: '{{ deploy_helper.new_release_path }}/{{ deploy_helper.unfinished_filename }}'
+        state: touch
+    - name: Composer installation
+      composer:
+        working_dir: "{{ deploy_helper.new_release_path }}"
+    - name: Prevent unnecessary directories
+      file:
+        path: "{{ deploy_helper.new_release_path }}/{{ item }}"
+        state: absent
+      with_items:
+        - tests/
+      ignore_errors: yes
+    - name: Symlink shared assets
+      file:
+        force: yes
+        path: "{{ deploy_helper.new_release_path }}/{{ item }}"
+        src: "{{ deploy_helper.shared_path }}/{{ item }}"
+        state: link
+      with_items:
+        - .env
+    - name: Set up directory permissions of release
+      become: true
+      file:
+        path: "{{ item.path }}"
+        recurse: "{{ item.recurse }}"
+        owner: "{{ web_user }}"
+        mode: 0755
+      with_items:
+        - path: "{{ deploy_helper.new_release_path }}/cache/"
+          recurse: yes
+    - name: Finalize the deploy, removing the unfinished file and switching the symlink
+      become: yes
+      deploy_helper:
+        path: "{{ project_path }}"
+        release: '{{ deploy_helper.new_release }}'
+        state: finalize
+        keep_releases: "{{ max_releases }}"
+    - name: Restart bot using new release
+      when:
+        - bot is defined
+      become: true
+      command: "supervisorctl restart {{ bot }}"
+    - name: Notify and party
+      when:
+       - webhook_uri is defined
+       - webhook_uri != ""
+      uri:
+        url: "{{ webhook_uri }}"
+        method: POST
+        body: '{"text": "A new version ({{ deploy_helper.new_release }}) of {{ project }} ({{ git_repo }})has been auto deployed by {{ git_user }}. - branch {{ git_branch }} (sha: {{ git_sha }}) "}'
+        body_format: json

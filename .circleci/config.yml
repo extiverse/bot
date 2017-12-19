@@ -1,0 +1,37 @@
+# PHP CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-php/ for more details
+#
+version: 2
+jobs:
+  deploy:
+    docker:
+      # specify the version you desire here
+      - image: circleci/php:7.1.8-browsers
+        environment:
+          ANSIBLE_HOST_KEY_CHECKING: False
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run: echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list
+      - run: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
+      - run: sudo apt-get update; sudo apt-get install ansible; ansible --version
+      - deploy:
+          command: ansible-playbook ./.circleci/deploy.yml -i ${DEPLOY_HOST}, -v
+          environment:
+            ANSIBLE_CONFIG: ./.ansible/ansible.cfg
+
+workflows:
+  version: 2
+  test-and-deploy:
+    jobs:
+      - deploy:
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              only:
+                - master
+                - circleci
