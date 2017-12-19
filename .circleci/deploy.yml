@@ -43,8 +43,8 @@
         path: "{{ deploy_helper.new_release_path }}/{{ item }}"
         state: absent
       with_items:
-        - tests/
-        - logs/
+        - tests
+        - logs
       ignore_errors: yes
     - name: Symlink shared assets
       file:
@@ -54,7 +54,7 @@
         state: link
       with_items:
         - .env
-        - logs/
+        - logs
     - name: Set up directory permissions of release
       become: true
       file:
