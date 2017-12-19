@@ -46,7 +46,7 @@ class PackageSearch implements AnswersMessages
 
         $response = new TextResponse();
         $embed = new Embed([
-            'title' => "Most downloaded extensions from search: '$search'",
+            'title' => "Extension search for '$search'.",
             'url' => $searchUrl,
         ]);
 
@@ -70,7 +70,7 @@ class PackageSearch implements AnswersMessages
         $embed->color = 0x5f4bb6;
         if ($total > 5) {
             $embed->footer = [
-                'text' => sprintf("Showing 5 out of $total extensions.")
+                'text' => sprintf("Showing 5 out of %d extensions, sorted by most downloaded.", $total)
             ];
         }
 
