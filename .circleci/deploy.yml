@@ -18,7 +18,7 @@
     web_user: "{{ lookup('env', 'DEPLOY_USER') }}"
     svn_ssh_key: "{{ lookup('env', 'DEPLOY_SSH_KEY') }}"
     project_path: "{{ deployment_path }}/{{ project }}/"
-    bot: "{{ lookup('env', 'BOT' }}"
+    bot: "{{ lookup('env', 'BOT') }}"
 
   tasks:
     - name: Initialize the deploy helper
