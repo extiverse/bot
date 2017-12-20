@@ -143,6 +143,6 @@ class DiscussionSearch implements AnswersMessages
      */
     public function whenMessageMatches(): ?string
     {
-        return '\$discuss search(\st:(?<tag>[^\s]+))? (?<search>.*)';
+        return '\$discuss search(\st(ag)?:(?<tag>[^\s]+))? (?<search>.*)';
     }
 }
