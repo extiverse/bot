@@ -12,8 +12,8 @@
         }
     ],
     "require": {
-        "discodian/core": "@dev",
-        "discodian/ext-sentry": "@dev",
+        "discodian/core": "^0.1.0@beta",
+        "discodian/ext-sentry": "^0.1",
         "flagrow/discodian-extension": "@dev",
         "flagrow/flarum-api-client": "^0.2.0@beta"
     },

@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b104ded1a63d6d101581cf65fdd89807",
+    "content-hash": "77fd1aa8aa73db604ab7d5c1d23c2fd0",
     "packages": [
         {
             "name": "discodian/core",
-            "version": "0.1.0-beta.2",
+            "version": "0.1.0-beta.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/discodian/core.git",
-                "reference": "919423f10f741a6639c282e65e6f457de9be42ce"
+                "reference": "649b12166f3308643316db72cea3f132a02f601d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/discodian/core/zipball/919423f10f741a6639c282e65e6f457de9be42ce",
-                "reference": "919423f10f741a6639c282e65e6f457de9be42ce",
+                "url": "https://api.github.com/repos/discodian/core/zipball/649b12166f3308643316db72cea3f132a02f601d",
+                "reference": "649b12166f3308643316db72cea3f132a02f601d",
                 "shasum": ""
             },
             "require": {
@@ -60,20 +60,20 @@
                 }
             ],
             "description": "The Discord bot toolkit for modern php",
-            "time": "2017-12-18T10:54:48+00:00"
+            "time": "2017-12-20T15:11:19+00:00"
         },
         {
             "name": "discodian/ext-sentry",
-            "version": "dev-master",
+            "version": "0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/discodian/ext-sentry.git",
-                "reference": "fa37962b85b2f28b9dd50cba6ca93ae5f1265b84"
+                "reference": "a3b64540a9b9f9c7e35f6922ce817c44de082a09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/discodian/ext-sentry/zipball/fa37962b85b2f28b9dd50cba6ca93ae5f1265b84",
-                "reference": "fa37962b85b2f28b9dd50cba6ca93ae5f1265b84",
+                "url": "https://api.github.com/repos/discodian/ext-sentry/zipball/a3b64540a9b9f9c7e35f6922ce817c44de082a09",
+                "reference": "a3b64540a9b9f9c7e35f6922ce817c44de082a09",
                 "shasum": ""
             },
             "require": {
@@ -98,7 +98,7 @@
                 }
             ],
             "description": "The Sentry extension for discodian",
-            "time": "2017-12-19T13:22:24+00:00"
+            "time": "2017-12-20T15:10:44+00:00"
         },
         {
             "name": "discodian/extend",
@@ -2309,8 +2309,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "discodian/core": 20,
-        "discodian/ext-sentry": 20,
+        "discodian/core": 10,
         "flagrow/discodian-extension": 20,
         "flagrow/flarum-api-client": 10
     },
