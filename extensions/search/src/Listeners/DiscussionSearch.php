@@ -37,6 +37,10 @@ class DiscussionSearch implements AnswersMessages
 
         $defer = new Deferred();
 
+        if ($tag = Arr::get($options, 'matches.tag.0')) {
+            $search .= " tag:$tag";
+        }
+
         /** @var Collection $response */
         $request = $this->flarum
             ->discussions()
@@ -48,7 +52,7 @@ class DiscussionSearch implements AnswersMessages
         $response = new TextResponse();
         $embed = new Embed([
             'title' => "Discussion search for '$search'.",
-            'url' => 'https://discuss.flarum.org/?q=' . $search
+            'url' => 'https://discuss.flarum.org/?q=' . urlencode($search)
         ]);
 
         $fields = [];
@@ -139,6 +143,6 @@ class DiscussionSearch implements AnswersMessages
      */
     public function whenMessageMatches(): ?string
     {
-        return '\$discuss search (?<search>.*)';
+        return '\$discuss search(\st:(?<tag>[^\s]+))? (?<search>.*)';
     }
 }
