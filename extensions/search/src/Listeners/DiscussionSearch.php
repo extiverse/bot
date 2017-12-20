@@ -7,23 +7,23 @@ use Discodian\Extend\Messages\Message;
 use Discodian\Extend\Responses\Response;
 use Discodian\Extend\Responses\TextResponse;
 use Discodian\Parts\Guild\Embed;
-use Flagrow\Discodian\Search\Api\Client;
+use Flagrow\Flarum\Api\Flarum;
+use Flagrow\Flarum\Api\Resource\Collection;
+use Flagrow\Flarum\Api\Resource\Item;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use React\Promise\Deferred;
 use React\Promise\Promise;
 
-class PackageSearch implements AnswersMessages
+class DiscussionSearch implements AnswersMessages
 {
-
     /**
      * @var Client
      */
-    private $http;
+    private $flarum;
 
-    public function __construct(Client $http)
+    public function __construct(Flarum $flarum)
     {
-        $this->http = $http;
+        $this->flarum = $flarum;
     }
 
     /**
@@ -37,52 +37,49 @@ class PackageSearch implements AnswersMessages
 
         $defer = new Deferred();
 
-        $payload = $this->http->search($search);
+        /** @var Collection $response */
+        $request = $this->flarum
+            ->discussions()
+            ->filter(['q' => $search])
+            ->request();
 
-        $meta = Arr::get($payload, 'meta', []);
-        $total = Arr::get($meta, 'items_total', 0);
-        $packages = Arr::get($payload, 'data', []);
-        $searchUrl = Str::replaceFirst('/api', '', Arr::get($payload, 'links.self'));
+        $discussions = $request->collect();
 
         $response = new TextResponse();
         $embed = new Embed([
-            'title' => "Extension search for '$search'.",
-            'url' => $searchUrl,
+            'title' => "Discussion search for '$search'.",
+            'url' => 'https://discuss.flarum.org/?q=' . $search
         ]);
 
         $fields = [];
 
-        foreach ($packages as $package) {
-            $packageUrl = Arr::get($package, 'attributes.landingPageLink');
-
-            if (!empty(Arr::get($package, 'attributes.discussLink'))) {
-                $packageUrl = Arr::get($package, 'attributes.discussLink');
-            }
-
+        $discussions->splice(0, 5)->each(function (Item $item) use (&$fields) {
             $fields[] = [
                 'name' => sprintf(
                     '%s',
-                    $package['attributes']['name']
+                    $item->title
                 ),
                 'value' => sprintf(
-                    "[%s](%s)",
-                    Str::limit($package['attributes']['description'], 800, '..'),
-                    $packageUrl
+                    '[Comments %d, participants %d](%s)',
+                    $item->commentsCount,
+                    $item->participantsCount,
+                    sprintf('https://discuss.flarum.org/d/%s', $item->slug)
                 )
             ];
-        }
+        });
 
         $embed->fields = $fields;
         $embed->color = 0x5f4bb6;
-        if ($total > 5) {
+
+        if ($discussions->count() > 5) {
             $embed->footer = [
-                'text' => sprintf("Showing 5 out of %d extensions, sorted by most downloaded.", $total)
+                'text' => sprintf("Showing only 5 discussions.")
             ];
         }
 
         $response->embed = $embed;
 
-        $defer->resolve([$response, $packages]);
+        $defer->resolve([$request, $response, $fields]);
 
         return $defer->promise();
     }
@@ -96,7 +93,7 @@ class PackageSearch implements AnswersMessages
      */
     public function forPrefix(): ?string
     {
-        return '$ext search ';
+        return '$discuss search ';
     }
 
     /**
@@ -138,6 +135,6 @@ class PackageSearch implements AnswersMessages
      */
     public function whenMessageMatches(): ?string
     {
-        return '\$ext search (?<search>[a-zA-Z0-9]+)';
+        return '\$discuss search (?<search>.*)';
     }
 }

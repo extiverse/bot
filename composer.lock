@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "be80cbe65519c40835d41893c4ffb1b0",
+    "content-hash": "b104ded1a63d6d101581cf65fdd89807",
     "packages": [
         {
             "name": "discodian/core",
@@ -68,12 +68,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/discodian/ext-sentry.git",
-                "reference": "7157e5c38e65111a040c25f4d0561207f1f23365"
+                "reference": "fa37962b85b2f28b9dd50cba6ca93ae5f1265b84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/discodian/ext-sentry/zipball/7157e5c38e65111a040c25f4d0561207f1f23365",
-                "reference": "7157e5c38e65111a040c25f4d0561207f1f23365",
+                "url": "https://api.github.com/repos/discodian/ext-sentry/zipball/fa37962b85b2f28b9dd50cba6ca93ae5f1265b84",
+                "reference": "fa37962b85b2f28b9dd50cba6ca93ae5f1265b84",
                 "shasum": ""
             },
             "require": {
@@ -98,7 +98,7 @@
                 }
             ],
             "description": "The Sentry extension for discodian",
-            "time": "2017-12-19T13:20:51+00:00"
+            "time": "2017-12-19T13:22:24+00:00"
         },
         {
             "name": "discodian/extend",
@@ -313,6 +313,59 @@
                 }
             ],
             "description": "The flagrow extension for discodian"
+        },
+        {
+            "name": "flagrow/flarum-api-client",
+            "version": "0.2.0-beta.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/flagrow/flarum-api-client.git",
+                "reference": "4217e8cbd8070d9a981bf3bb2d112b5ce51cb3d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/flagrow/flarum-api-client/zipball/4217e8cbd8070d9a981bf3bb2d112b5ce51cb3d5",
+                "reference": "4217e8cbd8070d9a981bf3bb2d112b5ce51cb3d5",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.1.1",
+                "illuminate/cache": "^5.3",
+                "illuminate/support": "^5.3",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Flagrow\\Flarum\\Api\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniël Klabbers",
+                    "email": "daniel+flarum@klabbers.email",
+                    "homepage": "http://hyn.io"
+                }
+            ],
+            "description": "Standalone package for calling the API of a Flarum installation.",
+            "keywords": [
+                "api",
+                "flagrow",
+                "flarum"
+            ],
+            "time": "2017-03-04T22:08:21+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -2257,8 +2310,9 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "discodian/core": 20,
+        "discodian/ext-sentry": 20,
         "flagrow/discodian-extension": 20,
-        "discodian/ext-sentry": 20
+        "flagrow/flarum-api-client": 10
     },
     "prefer-stable": true,
     "prefer-lowest": false,

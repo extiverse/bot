@@ -20,4 +20,5 @@ use Illuminate\Contracts\Foundation\Application;
 return function (Registry $registry, Application $app) {
     $app->register(Providers\ApiProvider::class);
     $registry->add(Listeners\PackageSearch::class);
+    $registry->add(Listeners\DiscussionSearch::class);
 };
