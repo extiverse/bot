@@ -63,7 +63,11 @@ class DiscussionSearch implements AnswersMessages
                     '[Comments %d, participants %d](%s)',
                     $item->commentsCount,
                     $item->participantsCount,
-                    sprintf('https://discuss.flarum.org/d/%s', $item->slug)
+                    sprintf(
+                        'https://discuss.flarum.org/d/%d-%s',
+                        $item->id,
+                        $item->slug
+                    )
                 )
             ];
         });
