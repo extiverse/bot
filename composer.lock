@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "discodian/core",
-            "version": "0.1.0-beta.8",
+            "version": "0.1.0-beta.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/discodian/core.git",
-                "reference": "8961e005127d2eecc9463bc0ead0d9e454b3a414"
+                "reference": "709b977d418a28a239cd081f50d95d1c23defd53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/discodian/core/zipball/8961e005127d2eecc9463bc0ead0d9e454b3a414",
-                "reference": "8961e005127d2eecc9463bc0ead0d9e454b3a414",
+                "url": "https://api.github.com/repos/discodian/core/zipball/709b977d418a28a239cd081f50d95d1c23defd53",
+                "reference": "709b977d418a28a239cd081f50d95d1c23defd53",
                 "shasum": ""
             },
             "require": {
@@ -60,7 +60,7 @@
                 }
             ],
             "description": "The Discord bot toolkit for modern php",
-            "time": "2017-12-31T13:51:32+00:00"
+            "time": "2017-12-31T14:03:14+00:00"
         },
         {
             "name": "discodian/ext-sentry",
