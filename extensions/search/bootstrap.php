@@ -12,13 +12,14 @@
  * @see https://github.com/discodian
  */
 
-namespace Flagrow\Discodian\Search;
+namespace Flagrow\Discodian;
 
 use Discodian\Extend\Responses\Registry;
 use Illuminate\Contracts\Foundation\Application;
 
 return function (Registry $registry, Application $app) {
-    $app->register(Providers\ApiProvider::class);
-    $registry->add(Listeners\PackageSearch::class);
-    $registry->add(Listeners\DiscussionSearch::class);
+    $app->register(Search\Providers\ApiProvider::class);
+    $registry->add(Search\Listeners\PackageSearch::class);
+    $registry->add(Search\Listeners\DiscussionSearch::class);
+    $registry->add(Artisan\Listeners\CallCommand::class);
 };

@@ -15,7 +15,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Flagrow\\Discodian\\Search\\": "src/"
+            "Flagrow\\Discodian\\Search\\": "src/Search/",
+            "Flagrow\\Discodian\\Artisan\\": "src/Artisan/"
         }
     },
     "config": {

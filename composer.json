@@ -15,7 +15,8 @@
         "discodian/core": "^0.1.0@beta",
         "discodian/ext-sentry": "*",
         "flagrow/discodian-extension": "@dev",
-        "flagrow/flarum-api-client": "^0.2.0@beta"
+        "flagrow/flarum-api-client": "^0.2.0@beta",
+        "symfony/process": "^4.0"
     },
     "scripts": {
         "post-root-package-install": [
