@@ -45,6 +45,7 @@ class CallCommand implements AnswersMessages
         $defer = new Deferred();
 
         $response = new TextResponse();
+        $response->privately();
 
         logs("Artisan command $command");
 
