@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "47c4adfb227b2dd13aae638bcd48b090",
+    "content-hash": "052d5041383dd90e9d742ddf96d6e27a",
     "packages": [
         {
             "name": "discodian/core",
@@ -289,7 +289,7 @@
             "version": "dev-master",
             "dist": {
                 "type": "path",
-                "url": "extensions/search",
+                "url": "extensions",
                 "reference": "211cc887bce00627b9e10c282d110f82f3939e5b",
                 "shasum": null
             },
