@@ -72,6 +72,12 @@ class PackageSearch implements AnswersMessages
             ];
         }
 
+        if (empty($fields)) {
+            $embed->footer = [
+                'text' => "No results found for your search."
+            ];
+        }
+
         $embed->fields = $fields;
         $embed->color = 0x5f4bb6;
         if ($total > 5) {
