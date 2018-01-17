@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "discodian/core",
-            "version": "0.1.0-beta.12",
+            "version": "0.1.0-beta.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/discodian/core.git",
-                "reference": "335611daffe24f4618b13981d77731a8c1d235d5"
+                "reference": "07302ccad79e676e2cc19c43b7c2e01e94144224"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/discodian/core/zipball/335611daffe24f4618b13981d77731a8c1d235d5",
-                "reference": "335611daffe24f4618b13981d77731a8c1d235d5",
+                "url": "https://api.github.com/repos/discodian/core/zipball/07302ccad79e676e2cc19c43b7c2e01e94144224",
+                "reference": "07302ccad79e676e2cc19c43b7c2e01e94144224",
                 "shasum": ""
             },
             "require": {
@@ -26,6 +26,7 @@
                 "guzzlehttp/guzzle": "^6.3.0",
                 "illuminate/cache": "5.5.*",
                 "illuminate/config": "5.5.*",
+                "illuminate/console": "5.5.*",
                 "illuminate/container": "5.5.*",
                 "illuminate/database": "5.5.*",
                 "illuminate/events": "5.5.*",
@@ -60,7 +61,7 @@
                 }
             ],
             "description": "The Discord bot toolkit for modern php",
-            "time": "2018-01-01T11:37:54+00:00"
+            "time": "2018-01-10T16:16:51+00:00"
         },
         {
             "name": "discodian/ext-sentry",
@@ -102,16 +103,16 @@
         },
         {
             "name": "discodian/extend",
-            "version": "0.1.0-beta.2",
+            "version": "0.1.0-beta.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/discodian/extend.git",
-                "reference": "559f80586f3cf312633164d33cdf11814d965149"
+                "reference": "6c02fa0e5885d62be52e6642c91f8f2633de0506"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/discodian/extend/zipball/559f80586f3cf312633164d33cdf11814d965149",
-                "reference": "559f80586f3cf312633164d33cdf11814d965149",
+                "url": "https://api.github.com/repos/discodian/extend/zipball/6c02fa0e5885d62be52e6642c91f8f2633de0506",
+                "reference": "6c02fa0e5885d62be52e6642c91f8f2633de0506",
                 "shasum": ""
             },
             "require": {
@@ -135,7 +136,7 @@
                 }
             ],
             "description": "The Discord extension assistance used in discodian",
-            "time": "2017-12-18T13:25:23+00:00"
+            "time": "2018-01-10T16:17:25+00:00"
         },
         {
             "name": "discodian/parts",
@@ -176,20 +177,20 @@
         },
         {
             "name": "doctrine/inflector",
-            "version": "v1.2.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "e11d84c6e018beedd929cff5220969a3c6d1d462"
+                "reference": "5527a48b7313d15261292c149e55e26eae771b0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/e11d84c6e018beedd929cff5220969a3c6d1d462",
-                "reference": "e11d84c6e018beedd929cff5220969a3c6d1d462",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/5527a48b7313d15261292c149e55e26eae771b0a",
+                "reference": "5527a48b7313d15261292c149e55e26eae771b0a",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0"
+                "php": "^7.1"
             },
             "require-dev": {
                 "phpunit/phpunit": "^6.2"
@@ -197,7 +198,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2.x-dev"
+                    "dev-master": "1.3.x-dev"
                 }
             },
             "autoload": {
@@ -239,7 +240,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2017-07-22T12:18:28+00:00"
+            "time": "2018-01-09T20:05:19+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -290,7 +291,7 @@
             "dist": {
                 "type": "path",
                 "url": "extensions",
-                "reference": "211cc887bce00627b9e10c282d110f82f3939e5b",
+                "reference": "b6e185fa1cc8f078207e5400a2f7f3ce068dadb2",
                 "shasum": null
             },
             "require": {
@@ -300,7 +301,8 @@
             "autoload": {
                 "psr-4": {
                     "Flagrow\\Discodian\\Search\\": "src/Search/",
-                    "Flagrow\\Discodian\\Artisan\\": "src/Artisan/"
+                    "Flagrow\\Discodian\\Artisan\\": "src/Artisan/",
+                    "Flagrow\\Discodian\\Bookmarks\\": "src/Bookmarks/"
                 }
             },
             "license": [
@@ -641,6 +643,56 @@
             "description": "The Illuminate Config package.",
             "homepage": "https://laravel.com",
             "time": "2017-06-26T13:15:04+00:00"
+        },
+        {
+            "name": "illuminate/console",
+            "version": "v5.5.28",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/illuminate/console.git",
+                "reference": "87c3a0941654e0bffcd6fa15bc574c855071a338"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/console/zipball/87c3a0941654e0bffcd6fa15bc574c855071a338",
+                "reference": "87c3a0941654e0bffcd6fa15bc574c855071a338",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "5.5.*",
+                "illuminate/support": "5.5.*",
+                "php": ">=7.0",
+                "symfony/console": "~3.3"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "Required to use the ping methods on schedules (~6.0).",
+                "mtdowling/cron-expression": "Required to use scheduling component (~1.0).",
+                "symfony/process": "Required to use scheduling component (~3.3)."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Console\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "The Illuminate Console package.",
+            "homepage": "https://laravel.com",
+            "time": "2017-12-26T14:46:43+00:00"
         },
         {
             "name": "illuminate/container",
@@ -1502,16 +1554,16 @@
         },
         {
             "name": "react/dns",
-            "version": "v0.4.11",
+            "version": "v0.4.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/dns.git",
-                "reference": "8558bba4f2784aa997670d15fc6f7461a8eb4e53"
+                "reference": "c74a0af0c7254e73600fd8c5c95f6bf23c5998f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/dns/zipball/8558bba4f2784aa997670d15fc6f7461a8eb4e53",
-                "reference": "8558bba4f2784aa997670d15fc6f7461a8eb4e53",
+                "url": "https://api.github.com/repos/reactphp/dns/zipball/c74a0af0c7254e73600fd8c5c95f6bf23c5998f4",
+                "reference": "c74a0af0c7254e73600fd8c5c95f6bf23c5998f4",
                 "shasum": ""
             },
             "require": {
@@ -1525,7 +1577,7 @@
             },
             "require-dev": {
                 "clue/block-react": "^1.2",
-                "phpunit/phpunit": "^5.0 || ^4.8.10"
+                "phpunit/phpunit": "^6.4 || ^5.7 || ^4.8.35"
             },
             "type": "library",
             "autoload": {
@@ -1544,7 +1596,7 @@
                 "dns-resolver",
                 "reactphp"
             ],
-            "time": "2017-08-25T08:22:48+00:00"
+            "time": "2018-01-14T10:04:36+00:00"
         },
         {
             "name": "react/event-loop",
@@ -1689,16 +1741,16 @@
         },
         {
             "name": "react/socket",
-            "version": "v0.8.7",
+            "version": "v0.8.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/socket.git",
-                "reference": "49bca29df739f4e288ba2abfed9cac93de1bfff6"
+                "reference": "e9e206b6277023bf4afd910a764f0cd3d470e7ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/socket/zipball/49bca29df739f4e288ba2abfed9cac93de1bfff6",
-                "reference": "49bca29df739f4e288ba2abfed9cac93de1bfff6",
+                "url": "https://api.github.com/repos/reactphp/socket/zipball/e9e206b6277023bf4afd910a764f0cd3d470e7ed",
+                "reference": "e9e206b6277023bf4afd910a764f0cd3d470e7ed",
                 "shasum": ""
             },
             "require": {
@@ -1732,7 +1784,7 @@
                 "reactphp",
                 "stream"
             ],
-            "time": "2017-12-24T11:28:59+00:00"
+            "time": "2018-01-06T12:13:20+00:00"
         },
         {
             "name": "react/stream",
