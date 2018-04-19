@@ -34,6 +34,7 @@ class PackageSearch implements AnswersMessages
     public function respond(Message $message, array $options = [])
     {
         $search = Arr::get($options, 'matches.search.0');
+        $search = Str::slug($search);
 
         $defer = new Deferred();
 
@@ -144,6 +145,6 @@ class PackageSearch implements AnswersMessages
      */
     public function whenMessageMatches(): ?string
     {
-        return '\$ext search (?<search>[a-zA-Z0-9\/]+)';
+        return '\$ext search (?<search>[a-zA-Z0-9\-\/\ ]+)';
     }
 }
