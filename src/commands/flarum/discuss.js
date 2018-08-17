@@ -29,7 +29,8 @@ module.exports = class DiscussCommand extends Command {
       .split(' ')
       .slice(1);
 
-    if (!action || !args.length || !this[action]) return msg.reply(this.usage());
+    if (!action || !args.length || !this[action])
+      return msg.reply(this.usage());
 
     return this[action](msg, ...args);
   }

@@ -29,7 +29,8 @@ module.exports = class ExtCommand extends Command {
       .split(' ')
       .slice(1);
 
-    if (!action || !args.length || !this[action]) return msg.say(this.usage());
+    if (!action || !args.length || !this[action])
+      return msg.reply(this.usage());
 
     return this[action](msg, ...args);
   }
@@ -58,7 +59,8 @@ module.exports = class ExtCommand extends Command {
           },
           fields: packages.map(p => ({
             name: p.attributes.name,
-            value: `[${p.attributes.description.slice(0, 800)}](${p.attributes.landingPageLink || p.attributes.discussLink})`,
+            value: `[${p.attributes.description.slice(0, 800)}](${p.attributes
+              .landingPageLink || p.attributes.discussLink})`,
           })),
           footer: !packages.length && {
             text: 'No results found for your search.',

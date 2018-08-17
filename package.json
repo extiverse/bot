@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "prettier --single-quote --trailing-comma es5 --write src/*.js src/**/*.js"
   },
-  "author": "",
+  "author": "Daniël Klabbers <daniel@klabbers.email>",
   "license": "ISC",
   "dependencies": {
     "consola": "^1.4.2",
