@@ -10,7 +10,7 @@
     "lint": "prettier --single-quote --trailing-comma es5 --write src/*.js src/**/*.js"
   },
   "engines": {
-    "node": ">6.4.0"
+    "node": ">8.0.0"
   },
   "author": "Daniël Klabbers <daniel@klabbers.email>",
   "license": "ISC",
