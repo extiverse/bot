@@ -1,0 +1,23 @@
+{
+  "name": "@flagrow/bot",
+  "version": "1.0.0",
+  "description": "The @flagrow bot written in DiscordJS",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "prettier --single-quote --trailing-comma es5 --write src/*.js src/**/*.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "consola": "^1.4.2",
+    "discord.js": "^11.4.2",
+    "discord.js-commando": "^0.10.0",
+    "dotenv": "^6.0.0",
+    "node-fetch": "^2.2.0",
+    "query-string": "^6.1.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.14.2"
+  }
+}
