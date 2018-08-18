@@ -17,7 +17,7 @@ const accepts = 'application/json';
 
 module.exports = class API {
   constructor(name, base, token) {
-    assert(token, `The ${this.name} token must be provided`);
+    assert(token, `The ${name} token must be provided for base ${base}`);
 
     this.name = name;
     this.base = base;
