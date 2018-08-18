@@ -14,7 +14,7 @@ client.registry
   .registerDefaultTypes()
   .registerDefaultGroups()
   .registerDefaultCommands({
-    groups: false,
+    help: false,
   })
   .registerGroups([
     ['flarum', 'Flarum Discuss'],
