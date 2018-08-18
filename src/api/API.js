@@ -17,17 +17,20 @@ const accepts = 'application/json';
 
 module.exports = class API {
   constructor(name, base, token) {
-    assert(token, `The ${name} token must be provided for base ${base}`);
-
     this.name = name;
     this.base = base;
+    
     if (!base.endsWith('/')) this.base += '/';
 
     this.headers = {
       'User-Agent': agent,
-      Accepts: accepts,
-      Authorization: `Bearer ${token}`
+      Accepts: accepts
     };
+    
+    if (token) {
+      this.headers['Authorization'] = `Bearer ${token}`;
+    }
+    
     this.logger = consola.withScope(name.toLowerCase());
   }
 
