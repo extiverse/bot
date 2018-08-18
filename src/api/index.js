@@ -8,7 +8,7 @@ module.exports = {
   ),
   discuss: new API(
     'Flarum',
-    'https://discuss.flarum.org/',
+    'https://discuss.flarum.org',
     process.env.FLARUM_TOKEN
   ),
 };

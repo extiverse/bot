@@ -1,6 +1,7 @@
 const Commando = require('discord.js-commando');
 const path = require('path');
-const consola = require('consola').withScope('discord');
+const consola = require('consola');
+const log = consola.withScope('discord');
 
 require('dotenv').config();
 
@@ -21,6 +22,10 @@ client.registry
     ['flagrow', 'Flagrow Packages'],
   ])
   .registerCommandsIn(path.join(__dirname, 'commands'));
+
+client.on('commandError', (command, err, msg, args) => {
+  consola.withScope(`discord:${command.name}`).error(err);
+});
 
 client.login(process.env.BOT_TOKEN).then(() => {
   consola.info(`Logged in as '${client.user.tag}'`);

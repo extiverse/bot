@@ -20,7 +20,7 @@ module.exports = class ExtCommand extends Command {
       .slice(1);
 
     if (!action || !args.length || !this[action])
-      return msg.reply(this.usage());
+      return msg.reply(this.usage('search <query>'));
 
     return this[action](msg, args.join(' '));
   }
@@ -31,32 +31,31 @@ module.exports = class ExtCommand extends Command {
       'page[size]': 5,
       sort: '-downloads',
     };
-    const path = `packages?${qs.stringify(query)}`;
+    const path = `/packages?${qs.stringify(query)}`;
 
     await msg.channel.startTyping();
 
-    return flagrow.get(path)
-      .then(async packages => {
-        await msg.channel.stopTyping();
+    return flagrow.get(path).then(async packages => {
+      await msg.channel.stopTyping();
 
-        return msg.embed({
-          title: `Extension search for '${q}'.`,
-          url: `${flagrow.base}${path}`,
-          color: 0x5f4bb6,
-          author: {
-            name: 'Flagrow',
-            url: 'https://flagrow.io',
-            icon_url: 'https://flagrow.io/img/icons/favicon.ico',
-          },
-          fields: packages.map(p => ({
-            name: p.attributes.name,
-            value: `[${p.attributes.description.slice(0, 800)}](${p.attributes
-              .landingPageLink || p.attributes.discussLink})`,
-          })),
-          footer: !packages.length && {
-            text: 'No results found for your search.',
-          },
-        });
+      return msg.embed({
+        title: `Extension search for '${q}'.`,
+        url: `https://flagrow.io${path}`,
+        color: 0x5f4bb6,
+        author: {
+          name: 'Flagrow',
+          url: 'https://flagrow.io',
+          icon_url: 'https://flagrow.io/img/icons/favicon.ico',
+        },
+        fields: packages.map(p => ({
+          name: p.attributes.name,
+          value: `[${p.attributes.description.slice(0, 800)}](${p.attributes
+            .landingPageLink || p.attributes.discussLink})`,
+        })),
+        footer: !packages.length && {
+          text: 'No results found for your search.',
+        },
       });
+    });
   }
 };

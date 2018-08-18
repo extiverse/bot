@@ -19,7 +19,7 @@ module.exports = class DiscussCommand extends Command {
       .slice(1);
 
     if (!action || !args.length || !this[action])
-      return msg.reply(this.usage());
+      return msg.reply(this.usage('search <query>'));
 
     return this[action](msg, args.join(' '));
   }
@@ -27,10 +27,11 @@ module.exports = class DiscussCommand extends Command {
   async search(msg, q) {
     await msg.channel.startTyping();
 
-    return discuss.get(`api/discussions`, {
-      'filter[q]': q,
-      'page[limit]': 5,
-    })
+    return discuss
+      .get(`/api/discussions`, {
+        'filter[q]': q,
+        'page[limit]': 5,
+      })
       .then(async discussions => {
         await msg.channel.stopTyping();
 
@@ -41,13 +42,14 @@ module.exports = class DiscussCommand extends Command {
           author: {
             name: 'Flarum Discuss',
             url: discuss.base,
-            icon_url: 'https://cdn.discordapp.com/icons/360670804914208769/ad3f98190755e4e1160298e7e14cb55f.webp',
+            icon_url:
+              'https://cdn.discordapp.com/icons/360670804914208769/ad3f98190755e4e1160298e7e14cb55f.webp',
           },
           fields: discussions.map(d => ({
             name: d.attributes.title,
             value: `[Comments ${d.attributes.commentsCount}, participants ${
               d.attributes.participantsCount
-            }](${BASE_URL}/d/${d.id})`,
+            }](${discuss.base}/d/${d.id})`,
           })),
           footer: !discussions.length && {
             text: 'No results found for your search.',

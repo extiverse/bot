@@ -4,33 +4,30 @@ const consola = require('consola');
 const assert = require('assert');
 
 class APIError extends Error {
-  constructor(...args) {
+  constructor(name, ...args) {
     super(...args);
 
-    this.name = 'APIError';
+    this.name = name;
   }
 }
 
-const agent= process.env.USER_AGENT || '@flagrow/bot';
+const agent = process.env.USER_AGENT || '@flagrow/bot';
 const accepts = 'application/json';
-
 
 module.exports = class API {
   constructor(name, base, token) {
     this.name = name;
     this.base = base;
-    
-    if (!base.endsWith('/')) this.base += '/';
 
     this.headers = {
       'User-Agent': agent,
-      Accepts: accepts
+      Accepts: accepts,
     };
-    
+
     if (token) {
       this.headers['Authorization'] = `Bearer ${token}`;
     }
-    
+
     this.logger = consola.withScope(name.toLowerCase());
   }
 
@@ -41,17 +38,13 @@ module.exports = class API {
       headers: this.headers,
     })
       .then(res => {
-        if (res.status !== 200) return Promise.reject(`${res.status} ${res.statusText} ${res.url}`);
+        if (res.status !== 200 || !res.url.includes(path))
+          throw new APIError(
+            this.name,
+            `${res.status} ${res.statusText} @ ${res.url}`
+          );
         return res.json();
       })
-      .then(res => res.data)
-      .catch(err => {
-        this.logger.error(err);
-        throw new APIError(
-          `An error occurred with the ${
-            this.name
-          } API. More details can be found in the console.`
-        );
-      });
+      .then(res => res.data);
   }
 };

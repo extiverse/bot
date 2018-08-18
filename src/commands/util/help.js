@@ -2,56 +2,88 @@ const { Command } = require('discord.js-commando');
 const { RichEmbed } = require('discord.js');
 
 class HelpCommand extends Command {
-	constructor(client) {
-		super(client, {
-			name: 'help',
-			group: 'util',
-			memberName: 'help',
-			description: 'Displays a list of available commands, or detailed information for a specified command.',
-			clientPermissions: ['EMBED_LINKS'],
-			ratelimit: 2,
-			args: [
-				{
-					key: 'command',
-					prompt: '',
-					type: 'command',
-					default: '',
-				}
-			]
-		});
-	}
+  constructor(client) {
+    super(client, {
+      name: 'help',
+      group: 'util',
+      memberName: 'help',
+      aliases: ['commands'],
+      description:
+        'Displays a list of available commands, or detailed information for a specified command.',
+      details:
+        "The command may be part of a command name or a whole command name. If it isn't specified, all available commands will be listed.",
+      clientPermissions: ['EMBED_LINKS'],
+      ratelimit: 2,
+      guarded: true,
+      args: [
+        {
+          key: 'command',
+          prompt: 'Which command would you like to view the help for?',
+          type: 'string',
+          default: '',
+        },
+      ],
+    });
+  }
 
-	run(msg, { command }) {
-		try {
-			const prefix = this.client.commandPrefix;
+  run(msg, args) {
+    const groups = this.client.registry.groups;
+    const command =
+      args.command &&
+      this.client.registry.findCommands(args.command, false, msg)[0];
 
-			if (!command) {
-				const embed = new RichEmbed()
-					.setColor(3447003)
-					.addField('❯ Commands', `A list of available commands. For additional info on a command, type \`${prefix}help <command>\``);
+    const prefix = this.client.commandPrefix;
 
-				for (const group of this.client.registry.groups.values()) {
-					embed.addField(`❯ ${group.id.replace(/(\b\w)/gi, lc => lc.toUpperCase())}`, `${group.commands.map(cmd => `\`${cmd.name}\``).join(', ')}`);
-				}
+    if (!command) {
+      const embed = new RichEmbed()
+        .setColor(3447003)
+        .addField(
+          '❯ Commands',
+          `A list of available commands. For additional info on a command, type \`${prefix}help <command>\``
+        );
 
-				return msg.say(embed);
-			}
+      for (const [, group] of groups.filter(grp =>
+        grp.commands.some(cmd => cmd.isUsable(msg))
+      )) {
+        embed.addField(
+          `❯ ${group.name.replace(/(\b\w)/gi, lc => lc.toUpperCase())}`,
+          `${group.commands
+            .filter(cmd => cmd.isUsable(msg))
+            .map(cmd => `\`${cmd.name}\``)
+            .join(', ')}`
+        );
+      }
 
-			const embed = new RichEmbed()
-				.setColor(3447003)
-				.setTitle(`\`${prefix}${command.name}\``)
-				.addField('❯ Description', command.description || '\u200b')
-				.addField('❯ Usage', command.usage() || '\u200b')
-				.addField('❯ Examples', command.examples ? command.examples.map(e => `\`${e}\``).join('\n') : '\u200b');
+      return msg.say(embed);
+    }
 
-			if (command.aliases.length > 1) embed.addField('❯ Aliases', `\`${command.aliases.join('` `')}\``, true);
-			if (command.description.examples && command.description.examples.length) embed.addField('❯ Examples', `\`${command.aliases[0]} ${command.description.examples.join(`\`\n\`${command.aliases[0]} `)}\``, true);
+    const embed = new RichEmbed()
+      .setColor(3447003)
+      .setTitle(`\`${prefix}${command.name}\``)
+      .addField('❯ Description', command.description || '\u200b')
+      .addField('❯ Usage', command.usage() || '\u200b');
 
-			return msg.say(embed);
-		} catch (err) {
-			console.error(err);
-		}
-	}
+    if (command.examples)
+      embed.addField(
+        '❯ Examples',
+        command.examples
+          ? command.examples.map(e => `\`${e}\``).join('\n')
+          : '\u200b'
+      );
+
+    if (command.aliases.length > 1)
+      embed.addField('❯ Aliases', `\`${command.aliases.join('` `')}\``, true);
+    if (command.description.examples && command.description.examples.length)
+      embed.addField(
+        '❯ Examples',
+        `\`${command.aliases[0]} ${command.description.examples.join(
+          `\`\n\`${command.aliases[0]} `
+        )}\``,
+        true
+      );
+
+    return msg.say(embed);
+  }
 }
 
 module.exports = HelpCommand;
