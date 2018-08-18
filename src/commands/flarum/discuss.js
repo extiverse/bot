@@ -1,16 +1,5 @@
 const { Command } = require('discord.js-commando');
-const fetch = require('node-fetch');
-const assert = require('assert');
-const qs = require('query-string');
-
-assert(process.env.FLAGROW_TOKEN);
-
-const BASE_URL = 'https://discuss.flarum.org';
-const headers = {
-  'User-Agent': process.env.USER_AGENT || '@flagrow/bot',
-  Authorization: `Bearer ${process.env.DISCUSS_TOKEN}`,
-  Accepts: 'application/json',
-};
+const { discuss } = require('../../api');
 
 module.exports = class DiscussCommand extends Command {
   constructor(client) {
@@ -32,28 +21,27 @@ module.exports = class DiscussCommand extends Command {
     if (!action || !args.length || !this[action])
       return msg.reply(this.usage());
 
-    return this[action](msg, ...args);
+    return this[action](msg, args.join(' '));
   }
 
   async search(msg, q) {
-    const query = qs.stringify({
+    await msg.channel.startTyping();
+
+    return discuss.get(`api/discussions`, {
       'filter[q]': q,
       'page[limit]': 5,
-    });
-
-    return fetch(`${BASE_URL}/api/discussions?${query}`, { headers })
-      .then(res => res.json())
-      .then(json => {
-        const discussions = json.data;
+    })
+      .then(async discussions => {
+        await msg.channel.stopTyping();
 
         return msg.embed({
           title: `Discussion search for '${q}'.`,
-          url: `${BASE_URL}/?q=${encodeURIComponent(q)}`,
+          url: `${discuss.base}/?q=${encodeURIComponent(q)}`,
           color: 0x5f4bb6,
           author: {
             name: 'Flarum Discuss',
-            url: 'https://discuss.flarum.org',
-            icon_url: 'https://flarum.org/favicon.ico',
+            url: discuss.base,
+            icon_url: 'https://cdn.discordapp.com/icons/360670804914208769/ad3f98190755e4e1160298e7e14cb55f.webp',
           },
           fields: discussions.map(d => ({
             name: d.attributes.title,

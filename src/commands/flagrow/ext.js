@@ -1,16 +1,6 @@
 const { Command } = require('discord.js-commando');
-const fetch = require('node-fetch');
-const assert = require('assert');
 const qs = require('query-string');
-
-assert(process.env.FLAGROW_TOKEN);
-
-const BASE_URL = 'https://flagrow.io';
-const headers = {
-  'User-Agent': process.env.USER_AGENT || '@flagrow/bot',
-  Authorization: `Bearer ${process.env.FLAGROW_TOKEN}`,
-  Accepts: 'application/json',
-};
+const { flagrow } = require('../../api');
 
 module.exports = class ExtCommand extends Command {
   constructor(client) {
@@ -32,7 +22,7 @@ module.exports = class ExtCommand extends Command {
     if (!action || !args.length || !this[action])
       return msg.reply(this.usage());
 
-    return this[action](msg, ...args);
+    return this[action](msg, args.join(' '));
   }
 
   async search(msg, q) {
@@ -43,14 +33,15 @@ module.exports = class ExtCommand extends Command {
     };
     const path = `packages?${qs.stringify(query)}`;
 
-    return fetch(`${BASE_URL}/api/${path}`, { headers })
-      .then(res => res.json())
-      .then(json => {
-        const packages = json.data;
+    await msg.channel.startTyping();
+
+    return flagrow.get(path)
+      .then(async packages => {
+        await msg.channel.stopTyping();
 
         return msg.embed({
           title: `Extension search for '${q}'.`,
-          url: `${BASE_URL}/${path}`,
+          url: `${flagrow.base}${path}`,
           color: 0x5f4bb6,
           author: {
             name: 'Flagrow',
