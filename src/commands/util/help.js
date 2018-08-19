@@ -59,7 +59,7 @@ class HelpCommand extends Command {
 
     const embed = new RichEmbed()
       .setColor(3447003)
-      .setTitle(`\`${prefix}${command.name}\``)
+      .setTitle(`\`${prefix}${command.name} ${command.format || ''}\``)
       .addField('❯ Description', command.description || '\u200b')
       .addField('❯ Usage', command.usage() || '\u200b');
 

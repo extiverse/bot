@@ -8,6 +8,7 @@ module.exports = class DiscussCommand extends Command {
       group: 'flarum',
       memberName: 'discuss',
       description: 'Search discussions on Flarum Discuss',
+      format: 'search <query>',
       examples: ['$discuss search rewritebase'],
     });
   }
@@ -19,7 +20,7 @@ module.exports = class DiscussCommand extends Command {
       .slice(1);
 
     if (!action || !args.length || !this[action])
-      return msg.reply(this.usage('search <query>'));
+      return msg.reply(this.usage(this.format));
 
     return this[action](msg, args.join(' '));
   }

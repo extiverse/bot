@@ -1,4 +1,5 @@
 const { Command } = require('discord.js-commando');
+const { RichEmbed } = require('discord.js');
 const qs = require('query-string');
 const { flagrow } = require('../../api');
 
@@ -9,7 +10,8 @@ module.exports = class ExtCommand extends Command {
       group: 'flagrow',
       memberName: 'ext',
       description: 'Search an extension on Flagrow.io',
-      examples: ['$ext search flagrow/upload'],
+      format: '<search|get> <query>',
+      examples: ['$ext search upload', '$ext get reactions'],
     });
   }
 
@@ -20,42 +22,99 @@ module.exports = class ExtCommand extends Command {
       .slice(1);
 
     if (!action || !args.length || !this[action])
-      return msg.reply(this.usage('search <query>'));
+      return msg.reply(this.usage(this.format));
 
     return this[action](msg, args.join(' '));
   }
 
   async search(msg, q) {
-    const query = {
-      'filter[q]': q,
-      'page[size]': 5,
-      sort: '-downloads',
-    };
-    const path = `/packages?${qs.stringify(query)}`;
-
     await msg.channel.startTyping();
 
-    return flagrow.get(path).then(async packages => {
+    return this.request(q).then(async packages => {
       await msg.channel.stopTyping();
 
-      return msg.embed({
-        title: `Extension search for '${q}'.`,
-        url: `https://flagrow.io${path}`,
-        color: 0x5f4bb6,
-        author: {
-          name: 'Flagrow',
-          url: 'https://flagrow.io',
-          icon_url: 'https://flagrow.io/img/icons/favicon.ico',
-        },
-        fields: packages.map(p => ({
-          name: p.attributes.name,
-          value: `[${p.attributes.description.slice(0, 800)}](${p.attributes
-            .landingPageLink || p.attributes.discussLink})`,
-        })),
-        footer: !packages.length && {
-          text: 'No results found for your search.',
-        },
-      });
+      return msg.embed(
+        this.formatEmbed({
+          title: `Extension search for '${q}'.`,
+          url: `https://flagrow.io/packages?q=${encodeURIComponent(q)}`,
+          fields: packages.map(p => ({
+            name: p.attributes.name,
+            value: `[${p.attributes.description.slice(0, 800)}](${p.attributes
+              .discussLink || p.attributes.landingPageLink})`,
+          })),
+          footer: !packages.length && {
+            text: 'No results found for your search.',
+          },
+        })
+      );
     });
+  }
+
+  async get(msg, q) {
+    await msg.channel.startTyping();
+
+    return this.request(q, 1).then(async packages => {
+      const p = packages[0];
+
+      await msg.channel.stopTyping();
+
+      if (!p)
+        return msg.embed(
+          this.formatEmbed({
+            footer: {
+              text: 'Package not found',
+            },
+          })
+        );
+
+      const {
+        name,
+        discussLink,
+        landingPageLink,
+        description,
+        vcs,
+        downloads,
+        stars,
+        forks,
+        highest_version,
+      } = p.attributes;
+
+      const embed = new RichEmbed()
+        .setTitle(name)
+        .setURL(discussLink || landingPageLink)
+        .addField('❯ Description', description.slice(0, 800));
+
+      if (vcs) embed.addField('❯ Source', vcs);
+
+      embed.addField('❯ Downloads', downloads.toLocaleString(), true);
+
+      if (stars) embed.addField('❯ Stars', stars.toLocaleString(), true);
+      if (forks) forks.addField('❯ Forks', forks.toLocaleString(), true);
+
+      embed.addField('❯ Latest Version', highest_version);
+
+      return msg.embed(this.formatEmbed(embed));
+    });
+  }
+
+  request(q, size = 5) {
+    const query = {
+      'filter[q]': q,
+      'page[size]': size,
+      sort: '-downloads',
+    };
+
+    return flagrow.get(`/packages?${qs.stringify(query)}`);
+  }
+
+  formatEmbed(embed) {
+    embed.author = {
+      name: 'Flagrow',
+      url: 'https://flagrow.io',
+      icon_url: 'https://flagrow.io/img/icons/favicon.ico',
+    };
+    embed.color = 0x5f4bb6;
+
+    return embed;
   }
 };
