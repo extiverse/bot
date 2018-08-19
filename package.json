@@ -15,10 +15,13 @@
   "author": "Daniël Klabbers <daniel@klabbers.email>",
   "license": "ISC",
   "dependencies": {
+    "common-tags": "^1.8.0",
     "consola": "^1.4.3",
     "discord.js": "^11.4.2",
     "discord.js-commando": "^0.10.0",
     "dotenv": "^6.0.0",
+    "moment": "^2.22.2",
+    "moment-duration-format": "^2.2.2",
     "node-fetch": "^2.2.0",
     "query-string": "^6.1.0"
   },
