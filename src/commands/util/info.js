@@ -32,7 +32,7 @@ class StatsCommand extends Command {
 				• [@datitisev](https://github.com/datitisev)
 			`, true)
 			.addField('❯ Source Code', '[@flagrow/bot](https://github.com/flagrow/bot)', true)
-			.setThumbnail('https://flagrow.io/img/icons/apple-touch-icon.png')
+			.setThumbnail('https://flagrow.io/img/icons/apple-touch-icon-180x180.png')
 			.setFooter('© 2018 Flagrow');
 
 		return msg.embed(embed);
