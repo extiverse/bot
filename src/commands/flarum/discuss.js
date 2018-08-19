@@ -44,7 +44,7 @@ module.exports = class DiscussCommand extends Command {
             name: 'Flarum Discuss',
             url: discuss.base,
             icon_url:
-              'https://cdn.discordapp.com/icons/360670804914208769/ad3f98190755e4e1160298e7e14cb55f.webp',
+              'https://flarum.org/apple-touch-icon.png',
           },
           fields: discussions.map(d => ({
             name: d.attributes.title,
