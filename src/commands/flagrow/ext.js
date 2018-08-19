@@ -89,7 +89,7 @@ module.exports = class ExtCommand extends Command {
       embed.addField('❯ Downloads', downloads.toLocaleString(), true);
 
       if (stars) embed.addField('❯ Stars', stars.toLocaleString(), true);
-      if (forks) forks.addField('❯ Forks', forks.toLocaleString(), true);
+      if (forks) embed.addField('❯ Forks', forks.toLocaleString(), true);
 
       embed.addField('❯ Latest Version', highest_version);
 
