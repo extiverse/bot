@@ -33,7 +33,7 @@ module.exports = class DiscussCommand extends Command {
         'filter[q]': q,
         'page[limit]': 5,
       })
-      .then(async discussions => {
+      .then(async ([discussions, ttl]) => {
         await msg.channel.stopTyping();
 
         return msg.embed({
@@ -43,8 +43,7 @@ module.exports = class DiscussCommand extends Command {
           author: {
             name: 'Flarum Discuss',
             url: discuss.base,
-            icon_url:
-              'https://flarum.org/apple-touch-icon.png',
+            icon_url: 'https://flarum.org/apple-touch-icon.png',
           },
           fields: discussions.map(d => ({
             name: d.attributes.title,
@@ -52,8 +51,8 @@ module.exports = class DiscussCommand extends Command {
               d.attributes.participantsCount
             }](${discuss.base}/d/${d.id})`,
           })),
-          footer: !discussions.length && {
-            text: 'No results found for your search.',
+          footer: {
+            text: (!discussions.length) ? 'No results found for your search.' : ttl,
           },
         });
       });
