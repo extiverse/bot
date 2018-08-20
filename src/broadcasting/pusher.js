@@ -1,19 +1,17 @@
 const _ = require('lodash');
-const Pusher = require('pusher-js');
+const PusherJS = require('pusher-js');
+const log = require('consola').withScope('pusher');
 
-module.exports = class pusher {
-  constructor(bot, log) {
+module.exports = class Pusher {
+  constructor(bot) {
     this.bot = bot;
-    this.log = log;
 
     if (process.env.PUSHER_APP_KEY) {
       this.broadcastOn = (process.env.BROADCAST_PUSHES_TO || '').split(',');
 
-      Pusher.log = (msg) => {
-        log.info(msg);
-      }
+      Pusher.log = log.info;
 
-      const pusher = new Pusher(process.env.PUSHER_APP_KEY, {
+      const pusher = new PusherJS(process.env.PUSHER_APP_KEY, {
         cluster: process.env.PUSHER_APP_CLUSTER || 'eu'
       });
 
