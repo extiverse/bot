@@ -3,7 +3,7 @@ const API = require('./API');
 module.exports = {
   flagrow: new API(
     'flagrow',
-    'https://flagrow.io/api',
+    process.env.FLAGROW_URL || 'https://flagrow.io/api',
     process.env.FLAGROW_TOKEN
   ),
   discuss: new API(
