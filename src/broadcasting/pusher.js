@@ -1,0 +1,36 @@
+const _ = require('lodash');
+const Pusher = require('pusher-js');
+
+module.exports = class pusher {
+  constructor(bot, log) {
+    this.bot = bot;
+    this.log = log;
+
+    if (process.env.PUSHER_APP_KEY) {
+      this.broadcastOn = (process.env.BROADCAST_PUSHES_TO || '').split(',');
+
+      Pusher.log = (msg) => {
+        log.info(msg);
+      }
+
+      const pusher = new Pusher(process.env.PUSHER_APP_KEY, {
+        cluster: process.env.PUSHER_APP_CLUSTER || 'eu'
+      });
+
+      const pusherChannel = pusher.subscribe(process.env.PUSHER_LISTEN_CHANNEL || 'System');
+
+      pusherChannel.bind_global((e, data) => {
+
+        const handler = _.camelCase(e.replace('App\\Events\\', '').replace('\\', ''));
+
+        log.info(`The event ${e} was received from pusher, seeking handler ${handler}`);
+
+        if (handler && this[handler]) {
+          this[handler](data);
+        }
+      });
+    }
+  }
+  newPackageReleased (extension) {
+  }
+}
