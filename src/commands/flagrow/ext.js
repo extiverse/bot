@@ -87,14 +87,15 @@ module.exports = class ExtCommand extends Command {
         .setURL(discussLink || landingPageLink)
         .addField('❯ Description', description.slice(0, 800));
 
-      if (vcs) embed.addField('❯ Source', vcs);
-
       embed.addField('❯ Downloads', downloads.toLocaleString(), true);
 
       if (stars) embed.addField('❯ Stars', stars.toLocaleString(), true);
       if (forks) embed.addField('❯ Forks', forks.toLocaleString(), true);
 
       embed.addField('❯ Latest Version', highest_version);
+
+      if (vcs) embed.addField('❯ Source', vcs);
+      if (discussLink) embed.addField('❯ Discuss', discussLink);
 
       return msg.embed(this.formatEmbed(embed, ttl));
     });
