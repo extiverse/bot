@@ -84,7 +84,7 @@ module.exports = class ExtCommand extends Command {
 
       const embed = new RichEmbed()
         .setTitle(name)
-        .setURL(discussLink || landingPageLink)
+        .setURL(landingPageLink)
         .addField('❯ Description', description.slice(0, 800));
 
       embed.addField('❯ Downloads', downloads.toLocaleString(), true);
