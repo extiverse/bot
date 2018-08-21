@@ -1,6 +1,6 @@
 const { RichEmbed } = require('discord.js');
 const { stripIndent } = require('common-tags');
-const Pusher = require('../broadcasting/Pusher');
+const Pusher = require('../broadcasting/pusher');
 const { notifications } = require('../db');
 const log = require('consola').withScope('pusher:handler');
 
