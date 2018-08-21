@@ -4,7 +4,7 @@ const Commando = require('discord.js-commando');
 const path = require('path');
 const consola = require('consola');
 const log = consola.withScope('discord');
-const pusher = require('./handlers/Pusher');
+const pusher = require('./handlers/pusher');
 
 const client = new Commando.Client({
   commandPrefix: '$',
