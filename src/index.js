@@ -25,7 +25,7 @@ client.registry
   .registerCommandsIn(path.join(__dirname, 'commands'));
 
 client.on('commandError', (command, err, msg, args) => {
-  log.withScope(`discord:${command.name}`).error(err);
+  consola.withScope(`discord:${command.name}`).error(err);
 });
 
 client.login(process.env.BOT_TOKEN).then(() => {

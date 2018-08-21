@@ -8,20 +8,24 @@ module.exports = class Pusher extends EventEmitter {
     super();
 
     if (process.env.PUSHER_APP_KEY) {
-      this.broadcastOn = (process.env.BROADCAST_PUSHES_TO || '').split(',');
-
       Pusher.log = msg => log.info(msg);
 
       const pusher = new PusherJS(process.env.PUSHER_APP_KEY, {
-        cluster: process.env.PUSHER_APP_CLUSTER || 'eu'
+        cluster: process.env.PUSHER_APP_CLUSTER || 'eu',
       });
 
-      const pusherChannel = pusher.subscribe(process.env.PUSHER_LISTEN_CHANNEL || 'System');
+      const pusherChannel = pusher.subscribe(
+        process.env.PUSHER_LISTEN_CHANNEL || 'System'
+      );
 
       pusherChannel.bind_global((e, data) => {
-        const handler = _.camelCase(e.replace('App\\Events\\', '').replace('\\', ''));
+        const handler = _.camelCase(
+          e.replace('App\\Events\\', '').replace('\\', '')
+        );
 
-        log.info(`The event ${e} was received from pusher, seeking handler ${handler}`);
+        log.info(
+          `The event ${e} was received from pusher, seeking handler ${handler}`
+        );
 
         this.emit(handler, data);
       });
