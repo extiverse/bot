@@ -9,7 +9,7 @@ module.exports = class Pusher {
     if (process.env.PUSHER_APP_KEY) {
       this.broadcastOn = (process.env.BROADCAST_PUSHES_TO || '').split(',');
 
-      Pusher.log = log.info;
+      Pusher.log = msg => log.info(msg);
 
       const pusher = new PusherJS(process.env.PUSHER_APP_KEY, {
         cluster: process.env.PUSHER_APP_CLUSTER || 'eu'
