@@ -10,6 +10,10 @@ module.exports = class DiscussCommand extends Command {
       description: 'Search discussions on Flarum Discuss',
       format: 'search <query>',
       examples: ['$discuss search rewritebase'],
+      throttling: {
+        usages: 10,
+        duration: 60
+      },
     });
   }
 

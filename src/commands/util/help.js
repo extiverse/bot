@@ -13,7 +13,10 @@ class HelpCommand extends Command {
       details:
         "The command may be part of a command name or a whole command name. If it isn't specified, all available commands will be listed.",
       clientPermissions: ['EMBED_LINKS'],
-      ratelimit: 2,
+      throttling: {
+        usages: 5,
+        duration: 60
+      },
       guarded: true,
       args: [
         {

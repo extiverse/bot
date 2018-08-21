@@ -13,7 +13,10 @@ class StatsCommand extends Command {
       aliases: ['stats'],
       description: 'Displays statistics about the bot.',
       clientPermissions: ['EMBED_LINKS'],
-      ratelimit: 2,
+      throttling: {
+        usages: 2,
+        duration: 60
+      },
       guarded: true,
     });
 

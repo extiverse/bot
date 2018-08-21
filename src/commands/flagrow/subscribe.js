@@ -12,7 +12,10 @@ class SubscribeCommand extends Command {
       aliases: ['sub'],
       description: 'Subscribe to extension events',
       userPermissions: ['ADMINISTRATOR'],
-      ratelimit: 1,
+      throttling: {
+        usages: 1,
+        duration: 60
+      },
       guildOnly: true,
     });
   }

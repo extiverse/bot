@@ -12,6 +12,10 @@ module.exports = class ExtCommand extends Command {
       description: 'Search an extension on Flagrow.io',
       format: '<search|get> <query>',
       examples: ['$ext search upload', '$ext get reactions'],
+      throttling: {
+        usages: 10,
+        duration: 60
+      },
     });
   }
 

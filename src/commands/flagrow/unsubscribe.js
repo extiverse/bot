@@ -12,7 +12,10 @@ class UnsubscribeCommand extends Command {
       aliases: ['unsub'],
       description: 'Unsubscribe to extension events',
       userPermissions: ['ADMINISTRATOR'],
-      ratelimit: 1,
+      throttling: {
+        usages: 1,
+        duration: 60
+      },
       guildOnly: true,
     });
   }
