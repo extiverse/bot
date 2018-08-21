@@ -1,14 +1,20 @@
 const Redis = require('ioredis');
-const REDIS_URL = process.env.REDIS_URL;
-const client = 'REDIS_URL' in process.env && new Redis(REDIS_URL);
+const log = require('consola').withScope('redis');
+
+const client = 'REDIS_URL' in process.env && new Redis(process.env.REDIS_URL);
+
+if (client) {
+  client.on('error', log.error);
+  client.on('connect', () => log.info('Connected'));
+}
 
 class Cache {
   constructor(service) {
     this.service = service;
   }
 
-  get(key) {
-    return client.get(this.format(key));
+  async get(key) {
+    return client && client.get(this.format(key));
   }
 
   /**

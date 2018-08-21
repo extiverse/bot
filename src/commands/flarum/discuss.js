@@ -52,7 +52,9 @@ module.exports = class DiscussCommand extends Command {
             }](${discuss.base}/d/${d.id})`,
           })),
           footer: {
-            text: (!discussions.length) ? 'No results found for your search.' : ttl,
+            text: !discussions.length
+              ? 'No results found for your search.'
+              : ttl,
           },
         });
       });

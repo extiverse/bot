@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 const qs = require('query-string');
 const consola = require('consola');
 const moment = require('moment');
-const Cache = require('./cache');
+const Cache = require('../cache');
 
 class APIError extends Error {
   constructor(name, ...args) {
@@ -15,9 +15,10 @@ class APIError extends Error {
 const agent = process.env.USER_AGENT || '@flagrow/bot';
 const accepts = 'application/json';
 const ttl = 30 * 60;
-const formatTtl = itemTtl => `Last updated ${moment()
-  .subtract(ttl - itemTtl, 'seconds')
-  .fromNow()}`;
+const formatTtl = itemTtl =>
+  `Last updated ${moment()
+    .subtract(ttl - itemTtl, 'seconds')
+    .fromNow()}`;
 
 module.exports = class API {
   constructor(name, base, token) {
@@ -45,10 +46,7 @@ module.exports = class API {
       const itemTtl = await this.cache.ttl(path);
       const data = JSON.parse(await this.cache.get(path));
 
-      return [
-        data,
-        formatTtl(itemTtl),
-      ];
+      return [data, formatTtl(itemTtl)];
     }
 
     const res = await fetch(this.base + path, {
