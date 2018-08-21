@@ -13,10 +13,15 @@ class UnsubscribeCommand extends Command {
       description: 'Unsubscribe to extension events',
       userPermissions: ['ADMINISTRATOR'],
       ratelimit: 1,
+      guildOnly: true,
     });
+
+    this.pattern = this.client.dispatcher.buildCommandPattern();
   }
 
   run(msg) {
+    if (!this.pattern.test(msg.content)) return;
+    
     const subscribed = notifications.has(msg.channel.id);
     const message = !subscribed ? 'This channel is not subscribed to notifications' : 'Successfully unsubscribed from extension notifications';
 

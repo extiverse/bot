@@ -13,10 +13,15 @@ class SubscribeCommand extends Command {
       description: 'Subscribe to extension events',
       userPermissions: ['ADMINISTRATOR'],
       ratelimit: 1,
+      guildOnly: true,
     });
+
+    this.pattern = this.client.dispatcher.buildCommandPattern();
   }
 
   run(msg) {
+    if (!this.pattern.test(msg.content)) return;
+
     const subscribed = notifications.has(msg.channel.id);
     const message = subscribed ? 'Notifications are already enabled for this channel' : 'Successfully subscribed to extension notifications';
 
