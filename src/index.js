@@ -2,7 +2,7 @@ const Commando = require('discord.js-commando');
 const path = require('path');
 const consola = require('consola');
 const log = consola.withScope('discord');
-const Pusher = require('./broadcasting/Pusher');
+const pusher = require('./handlers/Pusher');
 
 require('dotenv').config();
 
@@ -31,5 +31,5 @@ client.on('commandError', (command, err, msg, args) => {
 client.login(process.env.BOT_TOKEN).then(() => {
   log.info(`Logged in as '${client.user.tag}'`);
 
-  new Pusher(client);
+  pusher(client);
 });
