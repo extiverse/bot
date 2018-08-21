@@ -15,11 +15,10 @@ class SubscribeCommand extends Command {
       ratelimit: 1,
       guildOnly: true,
     });
-
-    this.pattern = this.client.dispatcher.buildCommandPattern();
   }
 
   run(msg) {
+    if (!this.pattern) this.pattern = this.client.dispatcher.buildCommandPattern();
     if (!this.pattern.test(msg.content)) return;
 
     const subscribed = notifications.has(msg.channel.id);
