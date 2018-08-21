@@ -1,10 +1,10 @@
+require('dotenv').config();
+
 const Commando = require('discord.js-commando');
 const path = require('path');
 const consola = require('consola');
 const log = consola.withScope('discord');
 const pusher = require('./handlers/Pusher');
-
-require('dotenv').config();
 
 const client = new Commando.Client({
   commandPrefix: '$',

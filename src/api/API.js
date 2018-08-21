@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 const qs = require('query-string');
 const consola = require('consola');
 const moment = require('moment');
-const Cache = require('./cache');
+const Cache = require('../cache');
 
 class APIError extends Error {
   constructor(name, ...args) {

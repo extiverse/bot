@@ -27,6 +27,8 @@ module.exports = class Pusher extends EventEmitter {
           `The event ${e} was received from pusher, seeking handler ${handler}`
         );
 
+        console.log(e, data);
+
         this.emit(handler, data);
       });
     }

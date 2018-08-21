@@ -18,11 +18,14 @@ class SubscribeCommand extends Command {
   }
 
   run(msg) {
-    if (!this.pattern) this.pattern = this.client.dispatcher.buildCommandPattern();
+    if (!this.pattern)
+      this.pattern = this.client.dispatcher.buildCommandPattern();
     if (!this.pattern.test(msg.content)) return;
 
     const subscribed = notifications.has(msg.channel.id);
-    const message = subscribed ? 'Notifications are already enabled for this channel' : 'Successfully subscribed to extension notifications';
+    const message = subscribed
+      ? 'Notifications are already enabled for this channel'
+      : 'Successfully subscribed to extension notifications';
 
     if (!subscribed) notifications.set(msg.channel.id, msg.author.id);
 
