@@ -14,7 +14,7 @@ class UnsubscribeCommand extends Command {
       userPermissions: ['ADMINISTRATOR'],
       throttling: {
         usages: 1,
-        duration: 60
+        duration: 60,
       },
       guildOnly: true,
     });

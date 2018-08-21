@@ -12,7 +12,7 @@ module.exports = class DiscussCommand extends Command {
       examples: ['$discuss search rewritebase'],
       throttling: {
         usages: 10,
-        duration: 60
+        duration: 60,
       },
     });
   }

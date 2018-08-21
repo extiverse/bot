@@ -15,7 +15,7 @@ class HelpCommand extends Command {
       clientPermissions: ['EMBED_LINKS'],
       throttling: {
         usages: 5,
-        duration: 60
+        duration: 60,
       },
       guarded: true,
       args: [

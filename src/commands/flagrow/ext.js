@@ -14,7 +14,7 @@ module.exports = class ExtCommand extends Command {
       examples: ['$ext search upload', '$ext get reactions'],
       throttling: {
         usages: 10,
-        duration: 60
+        duration: 60,
       },
     });
   }
