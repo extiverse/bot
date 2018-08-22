@@ -27,19 +27,26 @@ module.exports = client => {
         .catch(log.error);
     });
 
-  pusher.on('newPackageReleased', ({ package: extension }) =>
-    send(
+  pusher.on('newPackageReleased', ({ package: extension }) => {
+    const image = extension.icon.image || '';
+
+    return send(
       new RichEmbed()
         .setTitle('New Extension Published')
         .setURL(extension.discussLink || extension.landingPageLink)
+        .setThumbnail(
+          image.startsWith(FLAGROW_API.origin) &&
+            !image.endsWith('svg') &&
+            image
+        )
         .setDescription([
           `**Name:** ${extension.name}`,
           `**Description:** ${extension.description}`,
           extension.vcs && `**Source:** ${extension.vcs}`,
         ])
         .setTimestamp(extension.created_at)
-    )
-  );
+    );
+  });
 
   pusher.on('newPackageVersionReleased', ({ package: extension, version }) => {
     if (version.stability === 'dev') return;

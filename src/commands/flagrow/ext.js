@@ -1,6 +1,9 @@
+const url = require('url');
 const { Command } = require('discord.js-commando');
 const { RichEmbed } = require('discord.js');
 const { flagrow } = require('../../api');
+
+const FLAGROW_API = new URL(flagrow.base);
 
 module.exports = class ExtCommand extends Command {
   constructor(client) {
@@ -79,6 +82,7 @@ module.exports = class ExtCommand extends Command {
         landingPageLink,
         description,
         vcs,
+        icon,
         downloads,
         stars,
         forks,
@@ -88,9 +92,13 @@ module.exports = class ExtCommand extends Command {
       const embed = new RichEmbed()
         .setTitle(name)
         .setURL(landingPageLink)
-        .addField('❯ Description', description.slice(0, 800));
-
-      embed.addField('❯ Downloads', downloads.toLocaleString(), true);
+        .setThumbnail(
+          !icon.image.endsWith('svg') &&
+            icon.image.startsWith(FLAGROW_API.origin) &&
+            icon.image
+        )
+        .addField('❯ Description', description.slice(0, 800))
+        .addField('❯ Downloads', downloads.toLocaleString(), true);
 
       if (stars) embed.addField('❯ Stars', stars.toLocaleString(), true);
       if (forks) embed.addField('❯ Forks', forks.toLocaleString(), true);
