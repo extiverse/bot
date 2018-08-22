@@ -19,7 +19,7 @@ module.exports = class ExtCommand extends Command {
   }
 
   async run(msg) {
-    const [action, ...args] = amsg.content
+    const [action, ...args] = msg.content
       .toLowerCase()
       .split(' ')
       .slice(1);
