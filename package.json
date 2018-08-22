@@ -29,7 +29,8 @@
     "moment-duration-format": "^2.2.2",
     "node-fetch": "^2.2.0",
     "pusher-js": "^4.3.0",
-    "query-string": "^6.1.0"
+    "query-string": "^6.1.0",
+    "raven": "^2.6.3"
   },
   "devDependencies": {
     "prettier": "^1.14.2"

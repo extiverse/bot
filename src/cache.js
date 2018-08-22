@@ -1,10 +1,21 @@
 const Redis = require('ioredis');
+const { Raven } = require('./handlers/sentry');
 const log = require('consola').withScope('redis');
 
 const client = 'REDIS_URL' in process.env && new Redis(process.env.REDIS_URL);
 
 if (client) {
-  client.on('error', log.error);
+  client.on('error', err => {
+    if (Raven) {
+      Raven.captureException(err, {
+        tags: {
+          service: 'redis',
+        },
+      });
+
+      log.error(err);
+    }
+  });
   client.on('connect', () => log.info('Connected'));
 }
 
