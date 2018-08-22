@@ -5,7 +5,7 @@ const Pusher = require('../broadcasting/pusher');
 const { notifications } = require('../db');
 const log = require('consola').withScope('pusher:handler');
 
-const FLAGROW_API = new URL(flagrow.base);
+const FLAGROW_API = new URL(require('../api').flagrow.base);
 
 module.exports = client => {
   const pusher = new Pusher();
