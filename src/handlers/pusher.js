@@ -1,8 +1,11 @@
+const { URL } = require('url');
 const { RichEmbed } = require('discord.js');
 const { stripIndent } = require('common-tags');
 const Pusher = require('../broadcasting/pusher');
 const { notifications } = require('../db');
 const log = require('consola').withScope('pusher:handler');
+
+const FLAGROW_API = new URL(flagrow.base);
 
 module.exports = client => {
   const pusher = new Pusher();
