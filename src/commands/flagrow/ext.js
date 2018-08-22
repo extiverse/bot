@@ -1,6 +1,5 @@
 const { Command } = require('discord.js-commando');
 const { RichEmbed } = require('discord.js');
-const moment = require('moment');
 const { flagrow } = require('../../api');
 
 module.exports = class ExtCommand extends Command {

@@ -47,7 +47,7 @@ class StatsCommand extends Command {
       )
       .addField(
         '❯ Source Code',
-        '[@flagrow/bot](https://github.com/flagrow/bot)',
+        '[github.com/flagrow/bot](https://github.com/flagrow/bot)',
         true
       )
       .setThumbnail('https://flagrow.io/img/icons/apple-touch-icon-180x180.png')

@@ -20,7 +20,7 @@ client.registry
   })
   .registerGroups([
     ['flarum', 'Flarum Discuss'],
-    ['flagrow', 'Flagrow Packages'],
+    ['flagrow', 'Flagrow Marketplace'],
   ])
   .registerCommandsIn(path.join(__dirname, 'commands'));
 

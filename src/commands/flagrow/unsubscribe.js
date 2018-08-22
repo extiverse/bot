@@ -1,6 +1,4 @@
 const { Command } = require('discord.js-commando');
-const { RichEmbed } = require('discord.js');
-const { stripIndents } = require('common-tags');
 const { notifications } = require('../../db');
 
 class UnsubscribeCommand extends Command {
