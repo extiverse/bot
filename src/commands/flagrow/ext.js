@@ -95,8 +95,7 @@ module.exports = class ExtCommand extends Command {
 
       if (stars) embed.addField('❯ Stars', stars.toLocaleString(), true);
       if (forks) embed.addField('❯ Forks', forks.toLocaleString(), true);
-
-      embed.addField('❯ Latest Version', highest_version);
+      if (highest_version) embed.addField('❯ Latest Version', highest_version);
 
       if (vcs) embed.addField('❯ Source', vcs);
       if (discussLink) embed.addField('❯ Discuss', discussLink);
