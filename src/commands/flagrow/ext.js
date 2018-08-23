@@ -89,7 +89,7 @@ module.exports = class ExtCommand extends Command {
       const embed = new RichEmbed()
         .setTitle(name)
         .setURL(landingPageLink)
-        .setThumbnail(icon.image)
+        .setThumbnail(icon.svgpng || icon.image)
         .addField('❯ Description', description.slice(0, 800))
         .addField('❯ Downloads', downloads.toLocaleString(), true);
 

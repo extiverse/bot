@@ -39,10 +39,11 @@ module.exports = client => {
         .setTitle('New Extension Published')
         .setURL(extension.discussLink || extension.landingPageLink)
         .setThumbnail(
-          isValidURL(image) &&
-            image.startsWith(FLAGROW_API.origin) &&
-            !image.endsWith('svg') &&
-            image
+          icon.svgpng ||
+            (isValidURL(image) &&
+              image.startsWith(FLAGROW_API.origin) &&
+              !image.endsWith('svg') &&
+              image)
         )
         .setDescription([
           `**Name:** ${extension.name}`,
