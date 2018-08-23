@@ -3,8 +3,9 @@ const { RichEmbed } = require('discord.js');
 const { stripIndent } = require('common-tags');
 const Pusher = require('../broadcasting/pusher');
 const { notifications } = require('../db');
-const log = require('consola').withScope('pusher:handler');
+const { isValidURL } = require('../util');
 
+const log = require('consola').withScope('pusher:handler');
 const FLAGROW_API = new URL(require('../api').flagrow.base);
 
 module.exports = client => {
@@ -38,7 +39,8 @@ module.exports = client => {
         .setTitle('New Extension Published')
         .setURL(extension.discussLink || extension.landingPageLink)
         .setThumbnail(
-          image.startsWith(FLAGROW_API.origin) &&
+          isValidURL(image) &&
+            image.startsWith(FLAGROW_API.origin) &&
             !image.endsWith('svg') &&
             image
         )
