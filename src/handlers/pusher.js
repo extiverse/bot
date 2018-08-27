@@ -32,6 +32,7 @@ module.exports = client => {
     });
 
   pusher.on('newPackageReleased', ({ package: extension }) => {
+    const svgpng = extension.icon.svgpng || '';
     const image = extension.icon.image || '';
 
     return send(
@@ -39,7 +40,7 @@ module.exports = client => {
         .setTitle('New Extension Published')
         .setURL(extension.discussLink || extension.landingPageLink)
         .setThumbnail(
-          icon.svgpng ||
+          svgpng ||
             (isValidURL(image) &&
               image.startsWith(FLAGROW_API.origin) &&
               !image.endsWith('svg') &&
