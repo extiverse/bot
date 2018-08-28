@@ -29,18 +29,22 @@ require('./handlers/sentry')(Raven => {
 
   client.on('commandError', (command, err, msg, args) => {
     if (Raven) {
-      Raven.captureException(err, {
-        user: {
-          name: msg.author.tag,
-        },
-        tags: {
-          service: 'discord',
-        },
-        extra: {
-          command: command.constructor.name,
-          message: msg.content,
-        },
-      });
+      try {
+        Raven.captureException(err, {
+          user: {
+            name: msg.author.tag,
+          },
+          tags: {
+            service: 'discord',
+          },
+          extra: {
+            command: command.constructor.name,
+            message: msg.content,
+          },
+        });
+      } catch (err) {
+        console.error(err);
+      }
     }
 
     consola.withScope(`discord:${command.name}`).error(err);
