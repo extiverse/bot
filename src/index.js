@@ -27,25 +27,28 @@ require('./handlers/sentry')(Raven => {
     ])
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
-  client.on('commandError', (command, err, msg, args) => {
-    if (Raven) {
-      try {
-        Raven.captureException(err, {
-          user: {
-            name: msg.author.tag,
-          },
-          tags: {
-            service: 'discord',
-          },
-          extra: {
-            command: command.constructor.name,
-            message: msg.content,
-          },
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    }
+  client.on('error', err => {
+    if (Raven) sentryReport(err);
+
+    log.error(err);
+  });
+
+  client.on('warn', log.warn.bind(log));
+
+  client.on('commandError', (command, err, msg) => {
+    if (Raven)
+      sentryReport(err, {
+        user: {
+          name: msg.author.tag,
+        },
+        tags: {
+          service: 'discord',
+        },
+        extra: {
+          command: command.constructor.name,
+          message: msg.content,
+        },
+      });
 
     consola.withScope(`discord:${command.name}`).error(err);
   });
