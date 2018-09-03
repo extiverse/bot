@@ -2,11 +2,18 @@ const { URL } = require('url');
 const { RichEmbed } = require('discord.js');
 const { stripIndent } = require('common-tags');
 const Pusher = require('../broadcasting/pusher');
+const { report } = require('./sentry');
 const { notifications } = require('../db');
 const { isValidURL } = require('../util');
 
 const log = require('consola').withScope('pusher:handler');
 const FLAGROW_API = new URL(require('../api').flagrow.base);
+
+const handle = err => {
+  report(err);
+  log.error(err);
+};
+const wrap = cb => arg => (async () => cb(arg))().catch(handle);
 
 module.exports = client => {
   const pusher = new Pusher();
@@ -28,45 +35,51 @@ module.exports = client => {
                 .setColor(0xe74c3c)
             );
         })
-        .catch(log.error);
+        .catch(handle);
     });
 
-  pusher.on('newPackageReleased', ({ package: extension }) => {
-    const svgpng = extension.icon.svgpng || '';
-    const image = extension.icon.image || '';
+  pusher.on(
+    'newPackageReleased',
+    wrap(({ package: extension }) => {
+      const svgpng = extension.icon.svgpng || '';
+      const image = extension.icon.image || '';
 
-    return send(
-      new RichEmbed()
-        .setTitle('New Extension Published')
-        .setURL(extension.discussLink || extension.landingPageLink)
-        .setThumbnail(
-          svgpng ||
-            (isValidURL(image) &&
-              image.startsWith(FLAGROW_API.origin) &&
-              !image.endsWith('svg') &&
-              image)
-        )
-        .setDescription([
-          `**Name:** ${extension.name}`,
-          `**Description:** ${extension.description}`,
-          extension.vcs && `**Source:** ${extension.vcs}`,
-        ])
-        .setTimestamp(extension.created_at)
-    );
-  });
+      return send(
+        new RichEmbed()
+          .setTitle('New Extension Published')
+          .setURL(extension.discussLink || extension.landingPageLink)
+          .setThumbnail(
+            svgpng ||
+              (isValidURL(image) &&
+                image.startsWith(FLAGROW_API.origin) &&
+                !image.endsWith('svg') &&
+                image)
+          )
+          .setDescription([
+            `**Name:** ${extension.name}`,
+            `**Description:** ${extension.description}`,
+            extension.vcs && `**Source:** ${extension.vcs}`,
+          ])
+          .setTimestamp(extension.created_at)
+      );
+    })
+  );
 
-  pusher.on('newPackageVersionReleased', ({ package: extension, version }) => {
-    if (version.stability === 'dev') return;
+  pusher.on(
+    'newPackageVersionReleased',
+    wrap(({ package: extension, version }) => {
+      if (version.stability === 'dev') return;
 
-    return send(
-      new RichEmbed()
-        .setTitle('New Extension Version Released')
-        .setURL(extension.discussLink || extension.landingPageLink)
-        .setDescription([
-          `**Name:** ${extension.name}`,
-          `**Version:** ${version.version}`,
-        ])
-        .setTimestamp(version.created_at)
-    );
-  });
+      return send(
+        new RichEmbed()
+          .setTitle('New Extension Version Released')
+          .setURL(extension.discussLink || extension.landingPageLink)
+          .setDescription([
+            `**Name:** ${extension.name}`,
+            `**Version:** ${version.version}`,
+          ])
+          .setTimestamp(version.created_at)
+      );
+    })
+  );
 };
