@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-require('./handlers/sentry')(Raven => {
+require('./handlers/sentry')(sentryReport => {
   const Commando = require('discord.js-commando');
   const path = require('path');
   const consola = require('consola');
@@ -24,11 +24,12 @@ require('./handlers/sentry')(Raven => {
     .registerGroups([
       ['flarum', 'Flarum Discuss'],
       ['flagrow', 'Flagrow Marketplace'],
+      ['pusher', 'Pusher'],
     ])
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
   client.on('error', err => {
-    if (Raven) sentryReport(err);
+    if (sentryReport) sentryReport(err);
 
     log.error(err);
   });
@@ -36,7 +37,7 @@ require('./handlers/sentry')(Raven => {
   client.on('warn', log.warn.bind(log));
 
   client.on('commandError', (command, err, msg) => {
-    if (Raven)
+    if (sentryReport)
       sentryReport(err, {
         user: {
           name: msg.author.tag,

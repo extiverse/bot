@@ -42,6 +42,12 @@ class Cache {
     return client && client.exists(this.format(key));
   }
 
+  async keys() {
+    return (await client.keys(`${this.service}:*`)).map(key =>
+      key.slice(this.service.length + 1)
+    );
+  }
+
   ttl(key) {
     return client.ttl(this.format(key));
   }

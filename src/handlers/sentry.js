@@ -25,7 +25,7 @@ const report = Raven
   : () => {};
 
 module.exports = Raven
-  ? callback => Raven.context(callback.bind(this, report))
+  ? callback => Raven.context(() => callback(report))
   : callback => callback(report);
 module.exports.Raven = Raven;
 module.exports.report = report;
