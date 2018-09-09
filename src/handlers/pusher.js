@@ -9,8 +9,8 @@ const { isValidURL } = require('../util');
 const log = require('consola').withScope('pusher:handler');
 const FLAGROW_API = new URL(require('../api').flagrow.base);
 
-const handle = err => {
-  report(err);
+const handle = (err, data) => {
+  report(err, data);
   log.error(err);
 };
 const wrap = cb => arg => (async () => cb(arg))().catch(handle);
@@ -35,7 +35,14 @@ module.exports = client => {
                 .setColor(0xe74c3c)
             );
         })
-        .catch(handle);
+        .catch(err => handle(err, {
+          tags: {
+            service: 'pusher',
+          },
+          extra: {
+            args,
+          },
+        }));
     });
 
   pusher.on(
