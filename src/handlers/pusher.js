@@ -49,7 +49,7 @@ module.exports = client => {
           .setTitle('New Extension Published')
           .setURL(extension.discussLink || extension.landingPageLink)
           .setThumbnail(
-            svgpng ||
+            (isValidURL(svgpng) && svgpng) ||
               (isValidURL(image) &&
                 image.startsWith(FLAGROW_API.origin) &&
                 !image.endsWith('svg') &&
