@@ -18,7 +18,7 @@
   "dependencies": {
     "common-tags": "^1.8.0",
     "consola": "^1.4.3",
-    "discord.js": "github:discordjs/discord.js#master",
+    "discord.js": "^11.4.2",
     "discord.js-commando": "^0.10.0",
     "dotenv": "^6.0.0",
     "enmap": "^3.1.4",
