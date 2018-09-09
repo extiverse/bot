@@ -35,14 +35,16 @@ module.exports = client => {
                 .setColor(0xe74c3c)
             );
         })
-        .catch(err => handle(err, {
-          tags: {
-            service: 'pusher',
-          },
-          extra: {
-            args,
-          },
-        }));
+        .catch(err =>
+          handle(err, {
+            tags: {
+              service: 'pusher',
+            },
+            extra: {
+              args,
+            },
+          })
+        );
     });
 
   pusher.on(
