@@ -9,7 +9,7 @@ require('./handlers/sentry')(sentryReport => {
 
   const client = new Commando.Client({
     commandPrefix: '$',
-    owner: process.env.BOT_OWNER,
+    owner: process.env.BOT_OWNER && process.env.BOT_OWNER.split(/, ?/),
     disableEveryone: true,
     nonCommandEditable: false,
     unknownCommandResponse: false,
