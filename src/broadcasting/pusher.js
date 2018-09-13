@@ -1,6 +1,6 @@
 const PusherJS = require('pusher-js');
 const EventEmitter = require('events');
-const camelCase = require('lodash.camelcase');
+const _ = require('lodash');
 const log = require('consola').withScope('pusher');
 
 module.exports = class Pusher extends EventEmitter {
@@ -19,7 +19,7 @@ module.exports = class Pusher extends EventEmitter {
       );
 
       pusherChannel.bind_global((e, data) => {
-        const handler = camelCase(
+        const handler = _.camelCase(
           e.replace('App\\Events\\', '').replace('\\', '')
         );
 
