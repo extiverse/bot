@@ -27,7 +27,7 @@ module.exports = class ExtCommand extends Command {
     if (!action || !args.length || !this[action])
       return msg.reply(this.usage(this.format));
 
-    return this[action](msg, args.join(' '));
+    return this[action](msg, args.join(' ').trim());
   }
 
   async search(msg, q) {
