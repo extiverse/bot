@@ -40,7 +40,7 @@ module.exports = class ExtCommand extends Command {
         this.formatEmbed(
           {
             title: `Extension search for '${q}'.`,
-            url: `https://flagrow.io/packages?q=${encodeURIComponent(q)}`,
+            url: `https://flagrow.io/extensions?q=${encodeURIComponent(q)}`,
             fields: packages.map(p => ({
               name: p.attributes.name,
               value: `[${p.attributes.description.slice(0, 800)}](${p.attributes
