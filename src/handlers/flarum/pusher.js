@@ -2,7 +2,7 @@ const { URL } = require('url');
 const { RichEmbed } = require('discord.js');
 const Pusher = require('../../broadcasting/pusher');
 const { report } = require('../sentry');
-const { notifications } = require('../../db');
+const { discussNotifications } = require('../../db');
 const Cache = require('../../Cache');
 const { discuss } = require('../../api');
 
@@ -30,7 +30,7 @@ module.exports = client => {
   );
 
   const send = (evt, payload, embed) =>
-    Array.from(notifications.keys()).forEach(id => {
+    Array.from(discussNotifications.keys()).forEach(id => {
       if (!client.channels.has(id)) return;
       const channel = client.channels.get(id);
       let ogError = null;
@@ -57,7 +57,7 @@ module.exports = client => {
         channel
           .send(embed)
           .catch(err => {
-            const user = client.users.get(notifications.get(id));
+            const user = client.users.get(discussNotifications.get(id));
             ogError = err;
 
             if (err.message !== 'Missing Permissions') handle(ogError, data);
@@ -95,7 +95,7 @@ module.exports = client => {
           new RichEmbed()
             .setTitle(`New post on ${discussion.attributes.title}`)
             .setURL(`${discuss.base}/d/${discussion.id}`)
-            .setDescription(post.attributes.contentHtml.replace(/<(?:.|\n)*?>/gm, ''))
+            .setDescription(post.attributes.contentHtml.replace(/<(?:.|\n)*?>/gm, '').substring(0, 2048))
             // this is b8 compatible, we can change this soon
             .setTimestamp(post.attributes.time || post.attributes.created_at)
             .setAuthor(user.attributes.displayName, user.attributes.avatarUrl, `${discuss.base}/u/${user.id}`)

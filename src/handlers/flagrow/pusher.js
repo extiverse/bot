@@ -2,7 +2,7 @@ const { URL } = require('url');
 const { RichEmbed } = require('discord.js');
 const Pusher = require('../../broadcasting/pusher');
 const { report } = require('../sentry');
-const { notifications } = require('../../db');
+const { extensionNotifications } = require('../../db');
 const Cache = require('../../Cache');
 const { isValidURL } = require('../../util');
 
@@ -31,7 +31,7 @@ module.exports = client => {
   );
 
   const send = (evt, payload, embed) =>
-    Array.from(notifications.keys()).forEach(id => {
+    Array.from(extensionNotifications.keys()).forEach(id => {
       if (!client.channels.has(id)) return;
       const channel = client.channels.get(id);
       let ogError = null;
@@ -58,7 +58,7 @@ module.exports = client => {
         channel
           .send(embed)
           .catch(err => {
-            const user = client.users.get(notifications.get(id));
+            const user = client.users.get(extensionNotifications.get(id));
             ogError = err;
 
             if (err.message !== 'Missing Permissions') handle(ogError, data);

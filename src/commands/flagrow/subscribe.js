@@ -1,5 +1,5 @@
 const { Command } = require('discord.js-commando');
-const { notifications } = require('../../db');
+const { extensionNotifications } = require('../../db');
 
 class SubscribeCommand extends Command {
   constructor(client) {
@@ -23,12 +23,12 @@ class SubscribeCommand extends Command {
       this.pattern = this.client.dispatcher.buildCommandPattern();
     if (!this.pattern.test(msg.content)) return;
 
-    const subscribed = notifications.has(msg.channel.id);
+    const subscribed = extensionNotifications.has(msg.channel.id);
     const message = subscribed
       ? 'Notifications are already enabled for this channel'
       : 'Successfully subscribed to extension notifications';
 
-    if (!subscribed) notifications.set(msg.channel.id, msg.author.id);
+    if (!subscribed) extensionNotifications.set(msg.channel.id, msg.author.id);
 
     return msg.embed({
       title: message,
