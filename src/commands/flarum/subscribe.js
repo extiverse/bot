@@ -1,14 +1,13 @@
 const { Command } = require('discord.js-commando');
 const { notifications } = require('../../db');
 
-class UnsubscribeCommand extends Command {
+class SubscribeCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'unsubscribe',
-      group: 'flagrow',
-      memberName: 'unsubscribe',
-      aliases: ['unsub'],
-      description: 'Unsubscribe from extension events',
+      name: 'listen',
+      group: 'flarum',
+      memberName: 'listen',
+      description: 'Subscribe to discuss events',
       userPermissions: ['ADMINISTRATOR'],
       throttling: {
         usages: 1,
@@ -24,11 +23,11 @@ class UnsubscribeCommand extends Command {
     if (!this.pattern.test(msg.content)) return;
 
     const subscribed = notifications.has(msg.channel.id);
-    const message = !subscribed
-      ? 'This channel is not subscribed to notifications'
-      : 'Successfully unsubscribed from extension notifications';
+    const message = subscribed
+      ? 'Notifications are already enabled for this channel'
+      : 'Successfully subscribed to Flarum discuss notifications';
 
-    if (subscribed) notifications.delete(msg.channel.id);
+    if (!subscribed) notifications.set(msg.channel.id, msg.author.id);
 
     return msg.embed({
       title: message,
@@ -36,4 +35,4 @@ class UnsubscribeCommand extends Command {
   }
 }
 
-module.exports = UnsubscribeCommand;
+module.exports = SubscribeCommand;

@@ -1,5 +1,5 @@
 const { Command } = require('discord.js-commando');
-const { cache } = require('../../handlers/pusher');
+const { cache } = require('../../handlers/flagrow/pusher');
 const { RichEmbed } = require('discord.js');
 const prettier = require('prettier');
 const fecha = require('fecha');

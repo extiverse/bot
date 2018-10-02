@@ -37,7 +37,7 @@ module.exports = class DiscussCommand extends Command {
         'filter[q]': q,
         'page[limit]': 5,
       })
-      .then(async ([discussions, ttl]) => {
+      .then(async ([discussions, included, ttl]) => {
         await msg.channel.stopTyping();
 
         return msg.embed({

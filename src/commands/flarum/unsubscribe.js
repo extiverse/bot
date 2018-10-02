@@ -4,11 +4,10 @@ const { notifications } = require('../../db');
 class UnsubscribeCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'unsubscribe',
-      group: 'flagrow',
-      memberName: 'unsubscribe',
-      aliases: ['unsub'],
-      description: 'Unsubscribe from extension events',
+      name: 'mute',
+      group: 'flarum',
+      memberName: 'mute',
+      description: 'Unsubscribe from discuss events',
       userPermissions: ['ADMINISTRATOR'],
       throttling: {
         usages: 1,

@@ -59,10 +59,10 @@ module.exports = class API {
         `${res.status} ${res.statusText} @ ${res.url}`
       );
 
-    const data = (await res.json()).data;
+    const data = (await res.json());
 
     await this.cache.set(path, JSON.stringify(data), ttl);
 
-    return [data, formatTtl(ttl)];
+    return [data.data, data.included || [], formatTtl(ttl)];
   }
 };

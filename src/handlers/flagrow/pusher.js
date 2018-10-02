@@ -1,13 +1,13 @@
 const { URL } = require('url');
 const { RichEmbed } = require('discord.js');
-const Pusher = require('../broadcasting/pusher');
-const { report } = require('./sentry');
-const { notifications } = require('../db');
-const Cache = require('../Cache');
-const { isValidURL } = require('../util');
+const Pusher = require('../../broadcasting/pusher');
+const { report } = require('../sentry');
+const { notifications } = require('../../db');
+const Cache = require('../../Cache');
+const { isValidURL } = require('../../util');
 
 const log = require('consola').withScope('pusher:handler');
-const FLAGROW_API = new URL(require('../api').flagrow.base);
+const FLAGROW_API = new URL(require('../../api/index').flagrow.base);
 const cache = new Cache('pusher');
 
 const handle = (err, data) => {
@@ -23,7 +23,12 @@ const errorEmbed = (id, err) =>
     .setColor(0xe74c3c);
 
 module.exports = client => {
-  const pusher = new Pusher();
+  const pusher = new Pusher(
+      'flagrow',
+      process.env.PUSHER_APP_KEY,
+      process.env.PUSHER_LISTEN_CHANNEL,
+      process.env.PUSHER_APP_CLUSTER || null
+  );
 
   const send = (evt, payload, embed) =>
     Array.from(notifications.keys()).forEach(id => {

@@ -4,18 +4,18 @@ const camelCase = require('lodash.camelcase');
 const log = require('consola').withScope('pusher');
 
 module.exports = class Pusher extends EventEmitter {
-  constructor() {
+  constructor(name, key, channel, cluster) {
     super();
 
-    if (process.env.PUSHER_APP_KEY) {
+    if (key) {
       Pusher.log = msg => log.info(msg);
 
-      const pusher = new PusherJS(process.env.PUSHER_APP_KEY, {
-        cluster: process.env.PUSHER_APP_CLUSTER || 'eu',
+      const pusher = new PusherJS(key, {
+        cluster: cluster,
       });
 
       const pusherChannel = pusher.subscribe(
-        process.env.PUSHER_LISTEN_CHANNEL || 'System'
+        channel
       );
 
       pusherChannel.bind_global((e, data) => {
@@ -24,7 +24,7 @@ module.exports = class Pusher extends EventEmitter {
         );
 
         log.info(
-          `The event ${e} was received from pusher, seeking handler ${handler}`
+          `[${name}]: The event ${e} was received from pusher, seeking handler ${handler}`
         );
 
         this.emit(handler, data);

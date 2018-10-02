@@ -5,7 +5,8 @@ require('./handlers/sentry')(sentryReport => {
   const path = require('path');
   const consola = require('consola');
   const log = consola.withScope('discord');
-  const pusher = require('./handlers/pusher');
+  const flagrow = require('./handlers/flagrow/pusher');
+  const flarum = require('./handlers/flarum/pusher');
 
   const client = new Commando.Client({
     commandPrefix: '$',
@@ -64,6 +65,7 @@ require('./handlers/sentry')(sentryReport => {
   client.login(process.env.BOT_TOKEN).then(() => {
     log.info(`Logged in as '${client.user.tag}'`);
 
-    pusher(client);
+    flarum(client);
+    flagrow(client);
   });
 });
