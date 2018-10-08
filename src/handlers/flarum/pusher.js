@@ -94,7 +94,7 @@ module.exports = client => {
           ev,
           new RichEmbed()
             .setTitle(`New post on ${discussion.attributes.title}`)
-            .setURL(`${discuss.base}/d/${discussion.id}-${discussion.slug}/${post.number}`)
+            .setURL(`${discuss.base}/d/${discussion.attributes.id}-${discussion.attributes.slug}/${post.attributes.number}`)
             .setDescription(post.attributes.contentHtml.replace(/<(?:.|\n)*?>/gm, '').substring(0, 2048))
             // this is b8 compatible, we can change this soon
             .setTimestamp(post.attributes.time || post.attributes.created_at)
