@@ -30,14 +30,17 @@ require('./handlers/sentry')(sentryReport => {
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
   client.on('error', ({ error, message, target, type }) => {
-    if (sentryReport) sentryReport(error, {
-      tags: {
-        service: 'discord',
-      },
-      extra: {
-        message, target, type
-      }
-    });
+    if (sentryReport)
+      sentryReport(error, {
+        tags: {
+          service: 'discord',
+        },
+        extra: {
+          message,
+          target,
+          type,
+        },
+      });
 
     log.error(error);
   });

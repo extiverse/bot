@@ -77,33 +77,56 @@ module.exports = client => {
           }),
       ]);
     });
-  pusher.on('newPost', wrap(ev => {
-    const postId = ev.postId;
 
-    discuss.get(`/api/posts/${postId}?include=discussion,user`)
-      .then(async ([post, included, ttl]) => {
-        const discussion = included.find(include => {
-          return include.type === post.relationships.discussion.data.type && include.id === post.relationships.discussion.data.id;
-        });
-        const user = included.find(include => {
-          return include.type === post.relationships.user.data.type && include.id === post.relationships.user.data.id;
-        });
+  pusher.on(
+    'newPost',
+    wrap(ev => {
+      const postId = ev.postId;
 
-        return send(
-          'newPost',
-          ev,
-          new RichEmbed()
-            .setTitle(`New post on ${discussion.attributes.title}`)
-            .setURL(`${discuss.base}/d/${discussion.attributes.id}-${discussion.attributes.slug}/${post.attributes.number}`)
-            .setDescription(post.attributes.contentHtml.replace(/<(?:.|\n)*?>/gm, '').substring(0, 2048))
-            // this is b8 compatible, we can change this soon
-            .setTimestamp(post.attributes.time || post.attributes.created_at)
-            .setAuthor(user.attributes.displayName, user.attributes.avatarUrl, `${discuss.base}/u/${user.id}`)
-            .setColor(0xe7672e)
-            .setFooter(`${discuss.base}`)
-        );
-      })
-  }));
+      discuss
+        .get(`/api/posts/${postId}?include=discussion,user`)
+        .then(async ({ data: post, included, ttl }) => {
+          const discussion = included.find(include => {
+            return (
+              include.type === post.relationships.discussion.data.type &&
+              include.id === post.relationships.discussion.data.id
+            );
+          });
+          const user = included.find(include => {
+            return (
+              include.type === post.relationships.user.data.type &&
+              include.id === post.relationships.user.data.id
+            );
+          });
+
+          return send(
+            'newPost',
+            ev,
+            new RichEmbed()
+              .setTitle(`New post on ${discussion.attributes.title}`)
+              .setURL(
+                `${discuss.base}/d/${discussion.attributes.id}-${
+                  discussion.attributes.slug
+                }/${post.attributes.number}`
+              )
+              .setDescription(
+                post.attributes.contentHtml
+                  .replace(/<(?:.|\n)*?>/gm, '')
+                  .substring(0, 2048)
+              )
+              // this is b8 compatible, we can change this soon
+              .setTimestamp(post.attributes.time || post.attributes.created_at)
+              .setAuthor(
+                user.attributes.displayName,
+                user.attributes.avatarUrl,
+                `${discuss.base}/u/${user.id}`
+              )
+              .setColor(0xe7672e)
+              .setFooter(`${discuss.base}`)
+          );
+        });
+    })
+  );
 };
 
 module.exports.cache = cache;

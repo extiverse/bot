@@ -33,7 +33,7 @@ module.exports = class ExtCommand extends Command {
   async search(msg, q) {
     await msg.channel.startTyping();
 
-    return this.request(q).then(async ([packages, ttl]) => {
+    return this.request(q).then(async ({ data: packages, ttl }) => {
       await msg.channel.stopTyping();
 
       return msg.embed(
@@ -59,7 +59,7 @@ module.exports = class ExtCommand extends Command {
   async get(msg, q) {
     await msg.channel.startTyping();
 
-    return this.request(q, 1).then(async ([packages, ttl]) => {
+    return this.request(q, 1).then(async ({ data: packages, ttl }) => {
       const p = packages[0];
 
       await msg.channel.stopTyping();

@@ -12,6 +12,15 @@ class APIError extends Error {
   }
 }
 
+class APIResponse {
+  constructor(body, ttl, included) {
+    this.body = body;
+    this.data = body.data || body;
+    this.ttl = ttl || -1;
+    this.included = included || [];
+  }
+}
+
 const agent = process.env.USER_AGENT || '@flagrow/bot';
 const accepts = 'application/json';
 const ttl = 30 * 60;
@@ -46,7 +55,7 @@ module.exports = class API {
       const itemTtl = await this.cache.ttl(path);
       const data = JSON.parse(await this.cache.get(path));
 
-      return [data, formatTtl(itemTtl)];
+      return new APIResponse(data, formatTtl(itemTtl), data.included);
     }
 
     const res = await fetch(this.base + path, {
@@ -59,10 +68,10 @@ module.exports = class API {
         `${res.status} ${res.statusText} @ ${res.url}`
       );
 
-    const data = (await res.json());
+    const data = await res.json();
 
     await this.cache.set(path, JSON.stringify(data), ttl);
 
-    return [data.data, data.included || [], formatTtl(ttl)];
+    return new APIResponse(data, formatTtl(ttl), data.included);
   }
 };

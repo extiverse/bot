@@ -8,7 +8,6 @@ if (Raven) {
     autoBreadcrumbs: {
       http: true,
     },
-    captureUnhandledRejections: true,
     release: git.long(),
   }).install();
   Raven.on('error', log.error.bind(log));
@@ -23,6 +22,8 @@ const report = Raven
       }
     }
   : () => {};
+
+process.on('unhandledRejection', err => report(err));
 
 module.exports = Raven
   ? callback => Raven.context(() => callback(report))

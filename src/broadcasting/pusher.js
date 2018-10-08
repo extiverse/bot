@@ -14,9 +14,7 @@ module.exports = class Pusher extends EventEmitter {
         cluster: cluster,
       });
 
-      const pusherChannel = pusher.subscribe(
-        channel
-      );
+      const pusherChannel = pusher.subscribe(channel);
 
       pusherChannel.bind_global((e, data) => {
         const handler = camelCase(

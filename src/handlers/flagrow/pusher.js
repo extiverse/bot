@@ -24,10 +24,10 @@ const errorEmbed = (id, err) =>
 
 module.exports = client => {
   const pusher = new Pusher(
-      'flagrow',
-      process.env.PUSHER_APP_KEY,
-      process.env.PUSHER_LISTEN_CHANNEL,
-      process.env.PUSHER_APP_CLUSTER || null
+    'flagrow',
+    process.env.PUSHER_APP_KEY,
+    process.env.PUSHER_LISTEN_CHANNEL,
+    process.env.PUSHER_APP_CLUSTER || null
   );
 
   const send = (evt, payload, embed) =>
