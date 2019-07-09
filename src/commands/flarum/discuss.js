@@ -51,9 +51,7 @@ module.exports = class DiscussCommand extends Command {
           },
           fields: discussions.map(d => ({
             name: d.attributes.title,
-            value: `[Comments ${d.attributes.commentCount}, participants ${
-              d.attributes.participantCount
-            }](${discuss.base}/d/${d.id})`,
+            value: `[Comments ${d.attributes.commentCount}, participants ${d.attributes.participantCount}](${discuss.base}/d/${d.id})`,
           })),
           footer: {
             text: !discussions.length

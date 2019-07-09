@@ -41,11 +41,22 @@ module.exports = class ExtCommand extends Command {
           {
             title: `Extension search for '${q}'.`,
             url: `https://flagrow.io/extensions?q=${encodeURIComponent(q)}`,
-            fields: packages.map(p => ({
-              name: p.attributes.name,
-              value: `[${p.attributes.description.slice(0, 800)}](${p.attributes
-                .discussLink || p.attributes.landingPageLink})`,
-            })),
+            fields: packages.map(p => {
+              const {
+                name,
+                description,
+                discussLink,
+                landingPageLink,
+              } = p.attributes;
+              const link = discussLink || landingPageLink;
+
+              return {
+                name,
+                value: `[${
+                  description ? description.slice(0, 800) : link
+                }](${link})`,
+              };
+            }),
             footer: !packages.length && {
               text: 'No results found for your search.',
             },
@@ -90,7 +101,7 @@ module.exports = class ExtCommand extends Command {
         .setTitle(name)
         .setURL(landingPageLink)
         .setThumbnail(icon.svgpng || icon.image)
-        .addField('❯ Description', description.slice(0, 800))
+        .addField('❯ Description', description ? description.slice(0, 800) : '')
         .addField('❯ Downloads', downloads.toLocaleString(), true);
 
       if (stars) embed.addField('❯ Stars', stars.toLocaleString(), true);

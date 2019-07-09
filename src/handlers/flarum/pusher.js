@@ -105,9 +105,7 @@ module.exports = client => {
             new RichEmbed()
               .setTitle(`New post on ${discussion.attributes.title}`)
               .setURL(
-                `${discuss.base}/d/${discussion.id}-${
-                  discussion.attributes.slug
-                }/${post.attributes.number}`
+                `${discuss.base}/d/${discussion.id}-${discussion.attributes.slug}/${post.attributes.number}`
               )
               .setDescription(
                 post.attributes.contentHtml
