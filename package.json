@@ -17,10 +17,10 @@
   "license": "MIT",
   "dependencies": {
     "common-tags": "^1.8.0",
-    "consola": "^1.4.3",
+    "consola": "^2.9.0",
     "discord.js": "^11.5.1",
     "discord.js-commando": "^0.10.0",
-    "dotenv": "^6.0.0",
+    "dotenv": "^8.0.0",
     "enmap": "^3.1.4",
     "enmap-sqlite": "^2.0.5",
     "fecha": "^3.0.3",
