@@ -100,9 +100,13 @@ module.exports = class ExtCommand extends Command {
       const embed = new RichEmbed()
         .setTitle(name)
         .setURL(landingPageLink)
-        .setThumbnail(icon.svgpng || icon.image)
-        .addField('❯ Description', description ? description.slice(0, 800) : '')
-        .addField('❯ Downloads', downloads.toLocaleString(), true);
+        .setThumbnail(icon.svgpng || icon.image);
+
+      if (description) {
+        embed.addField('❯ Description', description.slice(0, 800));
+      }
+
+      embed.addField('❯ Downloads', downloads.toLocaleString(), true);
 
       if (stars) embed.addField('❯ Stars', stars.toLocaleString(), true);
       if (forks) embed.addField('❯ Forks', forks.toLocaleString(), true);
