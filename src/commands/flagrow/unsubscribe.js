@@ -19,10 +19,6 @@ class UnsubscribeCommand extends Command {
   }
 
   run(msg) {
-    if (!this.pattern)
-      this.pattern = this.client.dispatcher.buildCommandPattern();
-    if (!this.pattern.test(msg.content)) return;
-
     const subscribed = extensionNotifications.has(msg.channel.id);
     const message = !subscribed
       ? 'This channel is not subscribed to notifications'
