@@ -17,7 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "common-tags": "^1.8.0",
-    "consola": "^2.9.0",
+    "consola": "^2.10.1",
     "discord.js": "^11.5.1",
     "discord.js-commando": "^0.10.0",
     "dotenv": "^8.0.0",
@@ -25,14 +25,14 @@
     "enmap-sqlite": "^2.0.5",
     "fecha": "^3.0.3",
     "git-rev-sync": "^1.12.0",
-    "ioredis": "^4.11.1",
+    "ioredis": "^4.14.0",
     "lodash.camelcase": "^4.3.0",
     "moment": "^2.24.0",
     "moment-duration-format": "^2.3.2",
     "node-fetch": "^2.6.0",
     "prettier": "^1.18.2",
-    "pusher-js": "^4.4.0",
-    "query-string": "^6.8.1",
+    "pusher-js": "^5.0.0",
+    "query-string": "^6.8.2",
     "raven": "^2.6.4"
   }
 }
