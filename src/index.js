@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-require('./handlers/sentry')(sentryReport => {
+require('./handlers/sentry')((sentryReport) => {
   const Commando = require('discord.js-commando');
   const path = require('path');
   const consola = require('consola');

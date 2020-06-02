@@ -13,7 +13,7 @@ const handle = (err, data) => {
   report(err, data);
   log.error(err);
 };
-const wrap = cb => arg => (async () => cb(arg))().catch(handle);
+const wrap = (cb) => (arg) => (async () => cb(arg))().catch(handle);
 const errorEmbed = (id, err) =>
   new RichEmbed()
     .setTitle(`An error ocurred when sending an extension event`)
@@ -21,7 +21,7 @@ const errorEmbed = (id, err) =>
     .addField('Error', `${err.name}: ${err.message}`)
     .setColor(0xe7672e);
 
-module.exports = client => {
+module.exports = (client) => {
   const pusher = new Pusher(
     'flarum',
     process.env.FLARUM_PUSHER_APP_KEY,
@@ -30,7 +30,7 @@ module.exports = client => {
   );
 
   const send = (evt, payload, embed) =>
-    Array.from(discussNotifications.keys()).forEach(id => {
+    Array.from(discussNotifications.keys()).forEach((id) => {
       if (!client.channels.has(id)) return;
       const channel = client.channels.get(id);
       let ogError = null;
@@ -56,7 +56,7 @@ module.exports = client => {
         ),
         channel
           .send(embed)
-          .catch(err => {
+          .catch((err) => {
             const user = client.users.get(discussNotifications.get(id));
             ogError = err;
 
@@ -64,7 +64,7 @@ module.exports = client => {
 
             if (user) return user.send(errorEmbed(id, err));
           })
-          .catch(err => {
+          .catch((err) => {
             // If we can't send an error message to the channel either
             if (ogError.message === 'Missing Permissions') return;
 
@@ -80,19 +80,19 @@ module.exports = client => {
 
   pusher.on(
     'newPost',
-    wrap(ev => {
+    wrap((ev) => {
       const postId = ev.postId;
 
       discuss
         .get(`/api/posts/${postId}?include=discussion,user`)
         .then(async ({ data: post, included, ttl }) => {
-          const discussion = included.find(include => {
+          const discussion = included.find((include) => {
             return (
               include.type === post.relationships.discussion.data.type &&
               include.id === post.relationships.discussion.data.id
             );
           });
-          const user = included.find(include => {
+          const user = included.find((include) => {
             return (
               include.type === post.relationships.user.data.type &&
               include.id === post.relationships.user.data.id

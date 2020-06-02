@@ -5,7 +5,7 @@ const log = require('consola').withScope('redis');
 const client = 'REDIS_URL' in process.env && new Redis(process.env.REDIS_URL);
 
 if (client) {
-  client.on('error', err => {
+  client.on('error', (err) => {
     if (Raven) {
       Raven.captureException(err, {
         tags: {
@@ -43,7 +43,7 @@ class Cache {
   }
 
   async keys() {
-    return (await client.keys(`${this.service}:*`)).map(key =>
+    return (await client.keys(`${this.service}:*`)).map((key) =>
       key.slice(this.service.length + 1)
     );
   }

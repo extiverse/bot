@@ -19,10 +19,7 @@ module.exports = class ExtCommand extends Command {
   }
 
   async run(msg) {
-    const [action, ...args] = msg.content
-      .toLowerCase()
-      .split(' ')
-      .slice(1);
+    const [action, ...args] = msg.content.toLowerCase().split(' ').slice(1);
 
     if (!action || !args.length || !this[action])
       return msg.reply(this.usage(this.format));
@@ -41,12 +38,8 @@ module.exports = class ExtCommand extends Command {
           {
             title: `Extension search for '${q}'.`,
             url: `https://extiverse.com/?filter[q]=${encodeURIComponent(q)}`,
-            fields: packages.map(p => {
-              const {
-                name,
-                title,
-                description,
-              } = p;
+            fields: packages.map((p) => {
+              const { name, title, description } = p;
               const link = `https://extiverse.com/extensions/${name}`;
 
               return {
@@ -110,7 +103,11 @@ module.exports = class ExtCommand extends Command {
       embed.addField('❯ Description', description.slice(0, 800));
     }
 
-    embed.addField('❯ Compatible', compatibleWithLatestFlarum ? 'Yes' : 'No', true);
+    embed.addField(
+      '❯ Compatible',
+      compatibleWithLatestFlarum ? 'Yes' : 'No',
+      true
+    );
 
     if (highestVersion) embed.addField('❯ Version', highestVersion, true);
 
@@ -121,7 +118,12 @@ module.exports = class ExtCommand extends Command {
 
     embed.addField('❯ Downloads', downloads.toLocaleString(), true);
 
-    if (reviewsCount) embed.addField('❯ Reviews', `${reviewsRecommendCount} \\👍   /   ${reviewsNotRecommendCount} \\👎`, true)
+    if (reviewsCount)
+      embed.addField(
+        '❯ Reviews',
+        `${reviewsRecommendCount} \\👍   /   ${reviewsNotRecommendCount} \\👎`,
+        true
+      );
 
     if (!isPremium && vcs) embed.addField('❯ Source', vcs);
     if (supportForum) embed.addField('❯ Support [Forum]', supportForum);

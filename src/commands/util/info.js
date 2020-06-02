@@ -45,11 +45,7 @@ class StatsCommand extends Command {
 			`,
         true
       )
-      .addField(
-        '❯ Source Code',
-        'https://github.com/extiverse/bot',
-        true
-      )
+      .addField('❯ Source Code', 'https://github.com/extiverse/bot', true)
       .setThumbnail('https://extiverse.com/favicon/apple-icon-180x180.png')
       .setFooter(`© ${new Date().getFullYear()} Extiverse`);
 

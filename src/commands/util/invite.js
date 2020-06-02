@@ -23,9 +23,7 @@ class InviteLink extends Command {
         .addField('Invite Link', 'https://flagrow.io/bot/invite')
         .addField('Official Server', 'https://extiverse.com/discord')
         .setColor(0x84f139)
-        .setThumbnail(
-          'https://extiverse.com/favicon/apple-icon-180x180.png'
-        )
+        .setThumbnail('https://extiverse.com/favicon/apple-icon-180x180.png')
         .setFooter(`© ${new Date().getFullYear()} Extiverse`)
     );
   }

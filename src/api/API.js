@@ -15,7 +15,7 @@ class APIError extends Error {
 
 class APIResponse {
   constructor(data, ttl) {
-    this.data = data
+    this.data = data;
     this.ttl = ttl || -1;
   }
 }
@@ -23,7 +23,7 @@ class APIResponse {
 const agent = process.env.USER_AGENT || '@extiverse/bot';
 const accepts = 'application/json';
 const ttl = 30 * 60;
-const formatTtl = itemTtl =>
+const formatTtl = (itemTtl) =>
   `Last updated ${moment()
     .subtract(ttl - itemTtl, 'seconds')
     .fromNow()}`;

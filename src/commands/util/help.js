@@ -45,14 +45,14 @@ class HelpCommand extends Command {
           `A list of available commands. For additional info on a command, type \`${prefix}help <command>\``
         );
 
-      for (const [, group] of groups.filter(grp =>
-        grp.commands.some(cmd => cmd.isUsable(msg))
+      for (const [, group] of groups.filter((grp) =>
+        grp.commands.some((cmd) => cmd.isUsable(msg))
       )) {
         embed.addField(
-          `❯ ${group.name.replace(/(\b\w)/gi, lc => lc.toUpperCase())}`,
+          `❯ ${group.name.replace(/(\b\w)/gi, (lc) => lc.toUpperCase())}`,
           `${group.commands
-            .filter(cmd => cmd.isUsable(msg))
-            .map(cmd => `\`${cmd.name}\``)
+            .filter((cmd) => cmd.isUsable(msg))
+            .map((cmd) => `\`${cmd.name}\``)
             .join(', ')}`
         );
       }
@@ -70,7 +70,7 @@ class HelpCommand extends Command {
       embed.addField(
         '❯ Examples',
         command.examples
-          ? command.examples.map(e => `\`${e}\``).join('\n')
+          ? command.examples.map((e) => `\`${e}\``).join('\n')
           : '\u200b'
       );
 

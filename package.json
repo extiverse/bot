@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "start": "node src/index.js",
-    "lint": "prettier --single-quote --trailing-comma es5 --write 'src/**/*.js'",
+    "lint": "prettier --single-quote --trailing-comma es5 --write src",
     "watch": "supervisor --non-interactive --restart-verbose src/index.js"
   },
   "engines": {

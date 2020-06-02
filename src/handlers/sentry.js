@@ -23,10 +23,10 @@ const report = Raven
     }
   : () => {};
 
-process.on('unhandledRejection', err => report(err));
+process.on('unhandledRejection', (err) => report(err));
 
 module.exports = Raven
-  ? callback => Raven.context(() => callback(report))
-  : callback => callback(report);
+  ? (callback) => Raven.context(() => callback(report))
+  : (callback) => callback(report);
 module.exports.Raven = Raven;
 module.exports.report = report;

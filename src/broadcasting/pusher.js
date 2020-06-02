@@ -8,7 +8,7 @@ module.exports = class Pusher extends EventEmitter {
     super();
 
     if (key) {
-      Pusher.log = msg => log.info(msg);
+      Pusher.log = (msg) => log.info(msg);
 
       const pusher = new PusherJS(key, {
         cluster: cluster,

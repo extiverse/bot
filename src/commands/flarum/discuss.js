@@ -18,10 +18,7 @@ module.exports = class DiscussCommand extends Command {
   }
 
   async run(msg) {
-    const [action, ...args] = msg.content
-      .toLowerCase()
-      .split(' ')
-      .slice(1);
+    const [action, ...args] = msg.content.toLowerCase().split(' ').slice(1);
 
     if (!action || !args.length || !this[action])
       return msg.reply(this.usage(this.format));
@@ -49,7 +46,7 @@ module.exports = class DiscussCommand extends Command {
             url: discuss.base,
             icon_url: 'https://flarum.org/apple-touch-icon.png',
           },
-          fields: discussions.map(d => ({
+          fields: discussions.map((d) => ({
             name: d.title,
             value: `[Comments ${d.commentCount}, participants ${d.participantCount}](${discuss.base}/d/${d.id})`,
           })),
