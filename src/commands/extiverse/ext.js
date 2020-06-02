@@ -88,8 +88,6 @@ module.exports = class ExtCommand extends Command {
       description,
       vcs,
       downloads,
-      stars,
-      forks,
       compatibleWithLatestFlarum,
       highestVersion,
       iconUrl,
@@ -123,12 +121,7 @@ module.exports = class ExtCommand extends Command {
 
     embed.addField('❯ Downloads', downloads.toLocaleString(), true);
 
-    if (!isPremium) {
-      if (stars) embed.addField('❯ Stars', stars.toLocaleString(), true);
-      if (forks) embed.addField('❯ Forks', forks.toLocaleString(), true);
-    }
-
-    if (reviewsCount) embed.addField('❯ Reviews', `${reviewsRecommendCount} 🖒 ${reviewsNotRecommendCount} 🖓`, true)
+    if (reviewsCount) embed.addField('❯ Reviews', `${reviewsRecommendCount} \\👍   /   ${reviewsNotRecommendCount} \\👎`, true)
 
     if (!isPremium && vcs) embed.addField('❯ Source', vcs);
     if (supportForum) embed.addField('❯ Support [Forum]', supportForum);
@@ -140,7 +133,7 @@ module.exports = class ExtCommand extends Command {
     const query = {
       'filter[q]': q,
       'page[size]': size,
-      include: 'plan,team',
+      include: 'plan',
       sort: '-downloads',
     };
 
