@@ -1,31 +1,42 @@
 {
-  "name": "@flagrow/bot",
+  "name": "@extiverse/bot",
   "version": "1.0.0",
-  "description": "The @flagrow bot written in DiscordJS",
+  "description": "The @extiverse bot written in DiscordJS",
   "main": "src/index.js",
-  "private": "true",
+  "private": true,
   "scripts": {
     "start": "node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "prettier --single-quote --trailing-comma es5 --write 'src/**/*.js'",
     "watch": "supervisor --non-interactive --restart-verbose src/index.js"
   },
   "engines": {
     "node": ">8.0.0"
   },
-  "author": "Daniël Klabbers <daniel@klabbers.email>",
+  "author": {
+    "name": "Daniël Klabbers",
+    "email": "daniel@klabbers.email",
+    "url": "https://luceos.com"
+  },
+  "contributors": [
+    {
+      "name": "David Sevilla Martin",
+      "email": "me@datitisev.me",
+      "url": "https://datitisev.me"
+    }
+  ],
   "license": "MIT",
   "dependencies": {
+    "better-sqlite3": "^7.0.1",
     "common-tags": "^1.8.0",
     "consola": "^2.10.1",
     "discord.js": "^11.5.1",
     "discord.js-commando": "^0.10.0",
     "dotenv": "^8.0.0",
-    "enmap": "^3.1.4",
-    "enmap-sqlite": "^2.0.5",
+    "enmap": "^5.2.4",
     "fecha": "^3.0.3",
     "git-rev-sync": "^1.12.0",
     "ioredis": "^4.14.0",
+    "jsonapi-fractal": "^1.0.17",
     "lodash.camelcase": "^4.3.0",
     "moment": "^2.24.0",
     "moment-duration-format": "^2.3.2",

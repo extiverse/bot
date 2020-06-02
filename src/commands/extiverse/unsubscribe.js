@@ -5,7 +5,7 @@ class UnsubscribeCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'unsubscribe',
-      group: 'flagrow',
+      group: 'extiverse',
       memberName: 'unsubscribe',
       aliases: ['unsub'],
       description: 'Unsubscribe from extension events',

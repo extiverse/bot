@@ -1,10 +1,10 @@
 const API = require('./API');
 
 module.exports = {
-  flagrow: new API(
-    'flagrow',
-    process.env.FLAGROW_URL || 'https://flagrow.io/api',
-    process.env.FLAGROW_TOKEN
+  extiverse: new API(
+    'extiverse',
+    process.env.EXTIVERSE_URL || 'https://extiverse.com/api/v1',
+    process.env.EXTIVERSE_TOKEN
   ),
   discuss: new API(
     'flarum',

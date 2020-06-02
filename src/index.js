@@ -5,7 +5,6 @@ require('./handlers/sentry')(sentryReport => {
   const path = require('path');
   const consola = require('consola');
   const log = consola.withScope('discord');
-  const flagrow = require('./handlers/flagrow/pusher');
   const flarum = require('./handlers/flarum/pusher');
 
   const client = new Commando.Client({
@@ -24,7 +23,7 @@ require('./handlers/sentry')(sentryReport => {
     })
     .registerGroups([
       ['flarum', 'Flarum Discuss'],
-      ['flagrow', 'Flagrow Marketplace'],
+      ['extiverse', 'Extiverse Marketplace'],
       ['pusher', 'Pusher'],
     ])
     .registerCommandsIn(path.join(__dirname, 'commands'));
@@ -69,6 +68,5 @@ require('./handlers/sentry')(sentryReport => {
     log.info(`Logged in as '${client.user.tag}'`);
 
     flarum(client);
-    flagrow(client);
   });
 });

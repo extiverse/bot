@@ -2,6 +2,7 @@ const fetch = require('node-fetch');
 const qs = require('query-string');
 const consola = require('consola');
 const moment = require('moment');
+const { deserialize } = require('jsonapi-fractal');
 const Cache = require('../Cache');
 
 class APIError extends Error {
@@ -13,15 +14,13 @@ class APIError extends Error {
 }
 
 class APIResponse {
-  constructor(body, ttl, included) {
-    this.body = body;
-    this.data = body.data || body;
+  constructor(data, ttl) {
+    this.data = data
     this.ttl = ttl || -1;
-    this.included = included || [];
   }
 }
 
-const agent = process.env.USER_AGENT || '@flagrow/bot';
+const agent = process.env.USER_AGENT || '@extiverse/bot';
 const accepts = 'application/json';
 const ttl = 30 * 60;
 const formatTtl = itemTtl =>
@@ -55,7 +54,7 @@ module.exports = class API {
       const itemTtl = await this.cache.ttl(path);
       const data = JSON.parse(await this.cache.get(path));
 
-      return new APIResponse(data, formatTtl(itemTtl), data.included);
+      return new APIResponse(data, formatTtl(itemTtl));
     }
 
     const res = await fetch(this.base + path, {
@@ -68,10 +67,11 @@ module.exports = class API {
         `${res.status} ${res.statusText} @ ${res.url}`
       );
 
-    const data = await res.json();
+    const body = await res.json();
+    const data = deserialize(body, { changeCase: 'camelCase' });
 
     await this.cache.set(path, JSON.stringify(data), ttl);
 
-    return new APIResponse(data, formatTtl(ttl), data.included);
+    return new APIResponse(data, formatTtl(ttl));
   }
 };

@@ -50,8 +50,8 @@ module.exports = class DiscussCommand extends Command {
             icon_url: 'https://flarum.org/apple-touch-icon.png',
           },
           fields: discussions.map(d => ({
-            name: d.attributes.title,
-            value: `[Comments ${d.attributes.commentCount}, participants ${d.attributes.participantCount}](${discuss.base}/d/${d.id})`,
+            name: d.title,
+            value: `[Comments ${d.commentCount}, participants ${d.participantCount}](${discuss.base}/d/${d.id})`,
           })),
           footer: {
             text: !discussions.length

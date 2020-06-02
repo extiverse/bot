@@ -26,7 +26,7 @@ class StatsCommand extends Command {
   run(msg) {
     const embed = new RichEmbed()
       .setColor(3447003)
-      .setTitle('Flagrow Bot Statistics')
+      .setTitle('Extiverse Bot Statistics')
       .addField(
         '❯ Uptime',
         moment.duration(this.client.uptime).format('d[d ]h[h ]m[m ]s[s]'),
@@ -47,11 +47,11 @@ class StatsCommand extends Command {
       )
       .addField(
         '❯ Source Code',
-        '[github.com/flagrow/bot](https://github.com/flagrow/bot)',
+        'https://github.com/extiverse/bot',
         true
       )
-      .setThumbnail('https://flagrow.io/img/icons/apple-touch-icon-180x180.png')
-      .setFooter(`© ${new Date().getFullYear()} Flagrow`);
+      .setThumbnail('https://extiverse.com/favicon/apple-icon-180x180.png')
+      .setFooter(`© ${new Date().getFullYear()} Extiverse`);
 
     return msg.embed(embed);
   }

@@ -5,7 +5,7 @@ class SubscribeCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'subscribe',
-      group: 'flagrow',
+      group: 'extiverse',
       memberName: 'subscribe',
       aliases: ['sub'],
       description: 'Subscribe to extension events',

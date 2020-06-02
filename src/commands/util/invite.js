@@ -21,12 +21,12 @@ class InviteLink extends Command {
     return msg.embed(
       new RichEmbed()
         .addField('Invite Link', 'https://flagrow.io/bot/invite')
-        .addField('Official Server', 'https://flagrow.io/chat')
+        .addField('Official Server', 'https://extiverse.com/discord')
         .setColor(0x84f139)
         .setThumbnail(
-          'https://flagrow.io/img/icons/apple-touch-icon-180x180.png'
+          'https://extiverse.com/favicon/apple-icon-180x180.png'
         )
-        .setFooter(`© ${new Date().getFullYear()} Flagrow`)
+        .setFooter(`© ${new Date().getFullYear()} Extiverse`)
     );
   }
 }
