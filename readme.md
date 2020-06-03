@@ -12,3 +12,14 @@ $ npm ci
 # start bot
 $ npm run start
 ```
+
+## pm2 deployment
+
+```
+git pull origin master
+
+npm install
+rm -rf package-lock.json
+
+pm2 restart src/index.js --update-env
+```
