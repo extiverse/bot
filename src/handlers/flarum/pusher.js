@@ -83,40 +83,30 @@ module.exports = (client) => {
     wrap((ev) => {
       const postId = ev.postId;
 
-      discuss
+      return discuss
         .get(`/api/posts/${postId}?include=discussion,user`)
-        .then(async ({ data: post, included, ttl }) => {
-          const discussion = included.find((include) => {
-            return (
-              include.type === post.relationships.discussion.data.type &&
-              include.id === post.relationships.discussion.data.id
-            );
-          });
-          const user = included.find((include) => {
-            return (
-              include.type === post.relationships.user.data.type &&
-              include.id === post.relationships.user.data.id
-            );
-          });
+        .then(async ({ data: post, ttl }) => {
+          const discussion = post.discussion;
+          const user = post.user;
 
           return send(
             'newPost',
             ev,
             new RichEmbed()
-              .setTitle(`New post on ${discussion.attributes.title}`)
+              .setTitle(`New post on ${discussion.title}`)
               .setURL(
-                `${discuss.base}/d/${discussion.id}-${discussion.attributes.slug}/${post.attributes.number}`
+                `${discuss.base}/d/${discussion.id}-${discussion.slug}/${post.number}`
               )
               .setDescription(
-                post.attributes.contentHtml
+                post.contentHtml
                   .replace(/<(?:.|\n)*?>/gm, '')
                   .substring(0, 2048)
               )
               // this is b8 compatible, we can change this soon
-              .setTimestamp(post.attributes.time || post.attributes.created_at)
+              .setTimestamp(post.time || post.createdAt)
               .setAuthor(
-                user.attributes.displayName,
-                user.attributes.avatarUrl,
+                user.displayName,
+                user.avatarUrl,
                 `${discuss.base}/u/${user.id}`
               )
               .setColor(0xe7672e)
