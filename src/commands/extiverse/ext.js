@@ -111,7 +111,7 @@ module.exports = class ExtCommand extends Command {
 
     if (highestVersion) embed.addField('❯ Version', highestVersion, true);
     
-    const plan = plans.length === 1 ? plan.first : null;
+    const plan = plans.length === 1 ? plans[0] : null;
 
     if (isPremium) {
       embed.addField('❯ Premium', plan ? `${plan.price} / ${plan.interval}`  : `${plans.length} plans`, true);
