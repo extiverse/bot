@@ -90,6 +90,7 @@ module.exports = class ExtCommand extends Command {
       reviewsCount,
       reviewsRecommendCount,
       reviewsNotRecommendCount,
+      subscribersCount,
     } = p;
 
     const url = `https://extiverse.com/extension/${name}`;
@@ -110,12 +111,16 @@ module.exports = class ExtCommand extends Command {
     );
 
     if (highestVersion) embed.addField('❯ Version', highestVersion, true);
-    
-    const plan = plans.length === 1 ? plans[0] : null;
 
     if (isPremium) {
-      embed.addField('❯ Premium', plan ? `${plan.price} / ${plan.interval}`  : `${plans.length} plans`, true);
-      embed.addField('❯ Subscribers', plan.subscriberCount, true);
+      embed.addField(
+        '❯ Premium',
+        plans.length === 1
+          ? `${plans[0].price} / ${plans[0].interval}`
+          : `${plans.length} plans`,
+        true
+      );
+      embed.addField('❯ Subscribers', subscribersCount, true);
     }
 
     embed.addField('❯ Downloads', downloads.toLocaleString(), true);
