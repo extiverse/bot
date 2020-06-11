@@ -86,7 +86,7 @@ module.exports = class ExtCommand extends Command {
       iconUrl,
       isPremium,
       supportForum,
-      plan,
+      plans,
       reviewsCount,
       reviewsRecommendCount,
       reviewsNotRecommendCount,
@@ -110,9 +110,11 @@ module.exports = class ExtCommand extends Command {
     );
 
     if (highestVersion) embed.addField('❯ Version', highestVersion, true);
+    
+    const plan = plans.length === 1 ? plan.first : null;
 
     if (isPremium) {
-      embed.addField('❯ Premium', `${plan.price} / ${plan.interval}`, true);
+      embed.addField('❯ Premium', plan ? `${plan.price} / ${plan.interval}`  : `${plans.length} plans`, true);
       embed.addField('❯ Subscribers', plan.subscriberCount, true);
     }
 
@@ -135,7 +137,7 @@ module.exports = class ExtCommand extends Command {
     const query = {
       'filter[q]': q,
       'page[size]': size,
-      include: 'plan',
+      include: 'plans',
       sort: '-downloads',
     };
 
