@@ -26,7 +26,13 @@ module.exports = (client) => {
     'flarum',
     process.env.FLARUM_PUSHER_APP_KEY,
     process.env.FLARUM_PUSHER_LISTEN_CHANNEL,
-    process.env.FLARUM_PUSHER_APP_CLUSTER || null
+    {
+      cluster: process.env.FLARUM_PUSHER_APP_CLUSTER || null,
+      wsHost: process.env.FLARUM_PUSHER_APP_WS_HOST || null,
+      wssHost: process.env.FLARUM_PUSHER_APP_WSS_HOST || null,
+      wsPort: process.env.FLARUM_PUSHER_APP_WS_PORT || null,
+      wssPort: process.env.FLARUM_PUSHER_APP_WSS_PORT || null,
+    }
   );
 
   const send = (evt, payload, embed) =>

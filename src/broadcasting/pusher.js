@@ -4,15 +4,16 @@ const camelCase = require('lodash.camelcase');
 const log = require('consola').withScope('pusher');
 
 module.exports = class Pusher extends EventEmitter {
-  constructor(name, key, channel, cluster) {
+  constructor(name, key, channel, options) {
     super();
 
     if (key) {
       Pusher.log = (msg) => log.info(msg);
 
-      const pusher = new PusherJS(key, {
-        cluster: cluster,
-      });
+      // Force websocket transport only.
+      options.enabledTransports = ['wss', 'ws'];
+
+      const pusher = new PusherJS(key, options);
 
       const pusherChannel = pusher.subscribe(channel);
 
