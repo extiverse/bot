@@ -40,7 +40,7 @@ module.exports = class ExtCommand extends Command {
             url: `https://extiverse.com/?filter[q]=${encodeURIComponent(q)}`,
             fields: packages.map((p) => {
               const { name, title, description } = p;
-              const link = `https://extiverse.com/extensions/${name}`;
+              const link = `https://extiverse.com/extension/${name}`;
 
               return {
                 name: `${title} (${name})`,
